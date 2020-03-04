@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<div th:replace="include::include"></div>
+	<script src="./static/js/common/component-pager.js"></script>
+	<script src="./static/js/common/component-table.js"></script>
+	<link href="./static/css/class/classCommon.css" rel="stylesheet" />
+	<script src="./static/js/class/addressBook.js"></script>
+</head>
+<body>
+	<div id="app">
+		<div class="col-md-12 content table-content load-indicator" :class="isLoading?'loading':''" data-loading="正在加载">
+			<div class="panel">
+				<div class="panel-heading">
+					<!-- 头部开始 -->
+					<div id="top-div">
+						<!-- 搜索开始 -->
+						<div class="input-group search-div">
+							<input type="text" class="form-control" id="keyword" placeholder="请输入关键词" />
+							<span class="input-group-btn">
+								<button class="btn btn-primary" @click="search">搜索</button>
+								<button class="btn btn-default" @click="reset">重置</button>
+							</span>
+						</div>
+						<!-- 搜索结束 -->
+					</div>
+					<!-- 头部结束 -->
+				</div>
+				<div class="panel-body">
+					<!-- 表格开始 -->
+					<div style="height:100%;overflow:auto;">
+						<table class="table table-hover table-striped" style="margin:0px;">
+							<thead>
+								<tr>
+									<th style="width:16px;"><div @click="checkboxAll" class="checkbox-primary checkbox-parent" style="width:16px;"><label></label></div></th>
+									<th>编号</th>
+									<th>学号</th>
+									<th>姓名</th>
+									<th>籍贯</th>
+									<th>电话</th>
+									<th>QQ</th>
+									<th>家庭地址</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr v-if="addressBooks && addressBooks.length > 0" v-for="a in addressBooks">
+									<td style="width:16px;"><div @click="checkbox" class="checkbox-primary checkbox-children" style="width:16px;" :data-id="a.id"><label></label></div></td>
+									<td>{{a.id}}</td>
+									<td>{{a.studyNumber}}</td>
+									<td>{{a.name}}</td>
+									<td>{{a.nativePlace}}</td>
+									<td>{{a.phone}}</td>
+									<td>{{a.qqNumber}}</td>
+									<td>{{a.address}}</td>
+								</tr>
+								<tr v-if="addressBooks && addressBooks.length == 0">
+									<td colspan="8" align="center" style="text-align:center;">暂无数据</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<!-- 表格结束 -->
+				</div>
+				<div class="panel-footer">
+					<!-- page start -->
+					<component-pager v-bind.sync="pagination" v-on:list="list"></component-pager>
+					<!-- page end -->
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

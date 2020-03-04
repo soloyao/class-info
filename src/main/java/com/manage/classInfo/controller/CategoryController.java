@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.manage.classInfo.annotation.LogAnnotation;
 import com.manage.classInfo.pojo.Category;
 import com.manage.classInfo.service.CategoryService;
 
@@ -26,7 +25,6 @@ public class CategoryController {
 	@Autowired CategoryService categoryService;
 	
 	@GetMapping("/categories")
-	@LogAnnotation(desc = "分页获取所有类别")
 	public PageInfo<Category> list(@RequestParam(value = "start", defaultValue = "1") int start,
 			@RequestParam(value = "size", defaultValue = "10") int size,
 			@RequestParam(value = "keyword", defaultValue = "") String keyword) {
@@ -41,28 +39,24 @@ public class CategoryController {
 	}
 	
 	@GetMapping("/categories/{id}")
-	@LogAnnotation(desc = "获取单个类别")
 	public Category get(@PathVariable("id") int id) {
 		Category category = categoryService.get(id);
 		return category;
 	}
 	
 	@PostMapping("/categories")
-	@LogAnnotation(desc = "新增分类")
 	public String add(@RequestBody Category category) {
 		categoryService.add(category);
 		return "success";
 	}
 	
 	@PutMapping("/categories")
-	@LogAnnotation(desc = "修改分类")
 	public String update(@RequestBody Category category) {
 		categoryService.update(category);
 		return "success";
 	}
 	
 	@DeleteMapping("/categories/{id}")
-	@LogAnnotation(desc = "删除分类")
 	public String delete(@PathVariable("id") int id) {
 		categoryService.delete(id);
 		return "success";

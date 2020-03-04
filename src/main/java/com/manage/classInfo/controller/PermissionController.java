@@ -21,7 +21,6 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.manage.classInfo.annotation.LogAnnotation;
 import com.manage.classInfo.pojo.Permission;
 import com.manage.classInfo.pojo.User;
 import com.manage.classInfo.service.PermissionService;
@@ -32,20 +31,17 @@ public class PermissionController {
 	JSONObject json = new JSONObject();
 	
 	@GetMapping("/permissionsByUser")
-	@LogAnnotation(desc = "根据用户获取对应菜单")
 	public JSONArray getPermissionsByUser(HttpSession session) {
 		User user = (User) session.getAttribute("user");
 		return permissionService.listByUser(user);
 	}
 	
 	@GetMapping("/parentPermissions")
-	@LogAnnotation(desc = "获取所有的父菜单")
 	public List<Permission> list() {
 		return permissionService.listParentPermissions();
 	}
 	
 	@GetMapping("/permissions")
-	@LogAnnotation(desc = "分页获取所有菜单")
 	public PageInfo<Permission> list(@RequestParam(value = "start", defaultValue = "1") int start,
 			@RequestParam(value = "size", defaultValue = "10") int size,
 			@RequestParam(value = "keyword", defaultValue = "") String keyword,
@@ -62,14 +58,12 @@ public class PermissionController {
 	}
 	
 	@GetMapping("/permissions/{id}")
-	@LogAnnotation(desc = "获取单个菜单")
 	public Permission get(@PathVariable("id") int id) {
 		Permission permission = permissionService.get(id);
 		return permission;
 	}
 	
 	@PostMapping("/permissions")
-	@LogAnnotation(desc = "新增菜单")
 	public String add(@RequestBody Permission permission) {
 		int exist = permissionService.exist(permission);
 		if (0 != exist) {
@@ -84,14 +78,12 @@ public class PermissionController {
 	}
 	
 	@PutMapping("/permissions")
-	@LogAnnotation(desc = "修改菜单")
 	public String update(@RequestBody Permission permission) {
 		permissionService.update(permission);
 		return "success";
 	}
 	
 	@DeleteMapping("/permissions/{id}")
-	@LogAnnotation(desc = "删除菜单")
 	public String delete(@PathVariable("id") int id) {
 		permissionService.delete(id);
 		return "success";

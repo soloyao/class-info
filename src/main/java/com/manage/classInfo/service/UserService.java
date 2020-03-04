@@ -9,6 +9,7 @@ import com.manage.classInfo.pojo.User;
 
 public interface UserService {
 	User login(User user);
+	void register(User user);
 	int exist(User user);
 	List<User> list(Map<String, String> paramMap);
 	void add(User user);

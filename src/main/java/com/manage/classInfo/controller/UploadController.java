@@ -9,12 +9,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.manage.classInfo.annotation.LogAnnotation;
-
 @RestController
 public class UploadController {
 	@PostMapping("/upload")
-	@LogAnnotation(desc = "上传文件")
 	public String upload(HttpServletRequest request, @RequestParam("file") MultipartFile file) {
 		String fileName = null;
 		try {

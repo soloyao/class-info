@@ -11,9 +11,8 @@
 		<div class="center">
 			<div id="navigation" aria-multiselectable="true" class="panel-group" :style="{left:showNav=='none'?'-180px':'0px'}">
 				<div style="text-align:center;margin:15px 0;">
-					<!-- <img src="./static/image/logo.png" alt="system" style="width:50px;"> -->
 					<i class="icon icon-cubes icon-2x" style="color:white;"></i>
-					<span style="font-size:22px;color:white;">one system</span>
+					<span style="font-size:22px;color:white;">班费管理</span>
 				</div>
 				<div class="panel panel-default" v-for="(item, index) in items">
 					<div class="panel panel-heading">
@@ -27,11 +26,9 @@
 						<div class="panel-body">
 							<ul class="list-unstyled text-center">
 								<template v-for="(children, ind) in item.children" v-if="children">
-									<!-- <li :class="index == 0 && ind ==0 ? 'children' : ''" @click="childrenClick($event, children)"> -->
 									<li :class="{children:children==active}" @click="childrenClick($event, children)">
-										<!-- <a href="javascript:void(0)" :class="index == 0 && ind ==0 ? 'bg' : ''">{{children.name}}</a> -->
 										<a href="javascript:void(0)">
-											<span><!-- <i class="icon" :class="children.icon"></i> -->{{children.name}}</span>
+											<span>{{children.name}}</span>
 										</a>
 									</li>
 								</template>
@@ -45,7 +42,6 @@
 					<button class="btn btn-success" style="margin-left:10px;" @click="toggleNav" title="折叠导航栏" data-toggle="tooltip" data-placement="right">
 						<i class="icon icon-bars"></i>
 					</button>
-					<!-- <span class="top-btn-left top-btn"><i class="icon icon-bars" @click="toggleNav"></i></span> -->
 					<span class="top-btn-left top-btn"><i class="icon icon-refresh" @click="refreshNav" data-toggle="tooltip" title="刷新当前页" data-placement="right"></i></span>
 					<div class="right-info">
 						<span class="right-info-date">
@@ -78,10 +74,9 @@
 							    <div class="digital back" data-number="1"></div>
 							  </div>
 							</div>
-							<!-- beautiful clock -->
 						</span>
 						<div class="right-info-user dropdown">
-							<img class="right-info-user-img" src="./static/image/usericon.jpg" style="border-radius:50%;">
+							<img class="right-info-user-img" src="./static/image/login.jpg" style="border-radius:50%;">
 							<button data-toggle="dropdown" title="my info">
 			                    <span id="user_loginid">{{name}}</span>
 			                    <i class="right-info-user-icon icon icon-angle-down"></i>
@@ -119,7 +114,6 @@
 				<template v-for="children in childrens" v-if="children">
 					<iframe class="ifr ifr-hide" :class="{active:children==active}" :src="children.url"></iframe>
 				</template>
-				<!-- <iframe id="ifr" :src="src"></iframe> -->
 			</div>
 		</div>
 		

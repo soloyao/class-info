@@ -12,6 +12,7 @@ import com.manage.classInfo.pojo.UserRole;
 @Mapper
 public interface UserMapper {
 	User login(User user);
+	void register(User user);
 	int exist(User user);
 	List<User> list(Map<String, String> paramMap);
 	void add(User user);

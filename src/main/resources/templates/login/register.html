@@ -3,14 +3,14 @@
 <head>
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
-	<title>admin system</title>
+	<title>登录</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<script src="./static/js/common/jquery.min.js"></script>
 	<script src="./static/js/common/zui.js"></script>
 	<script src="./static/js/common/vue.min.js"></script>
 	<script src="./static/js/common/axios.min.js"></script>
 	<script src="./static/js/common/myzui.js"></script>
-	<script src="./static/js/login/login.js"></script>
+	<script src="./static/js/login/register.js"></script>
 	<link href="./static/css/zui.css" rel="stylesheet" />
 	<link rel="stylesheet" type="text/css" href="./static/css/login/default.css">
 	<link rel="stylesheet" type="text/css" href="./static/css/login/styles.css">
@@ -26,18 +26,17 @@
 		<div class="panel-lite">
 		  <div class="thumbur">
 		  	<img src="./static/image/login.jpg" style="border-radius:50%;">
-		    <!-- <div class="icon-lock"></div> -->
 		  </div>
-		  <h4>登录</h4>
+		  <h4>注册</h4>
 		  <div class="form-group1">
-		    <input required="required" id="login-name" class="form-control1" v-model="user4Login.name" />
+		    <input required="required" id="register-name" class="form-control1" v-model="user4Register.name" />
 		    <label class="form-label1">用户名</label>
 		  </div>
 		  <div class="form-group1">
-		    <input type="password" required="required" class="form-control1" v-model="user4Login.password" @keydown="loginKeyDown" />
+		    <input type="password" required="required" class="form-control1" v-model="user4Register.password" @keydown="registerKeyDown" />
 		    <label class="form-label1">密码</label>
-		  </div><a href="register">注册</a>
-		  <button class="floating-btn" @click="login"><i class="icon-arrow"></i></button>
+		  </div><a href="login">登录</a>
+		  <button class="floating-btn" @click="register"><i class="icon-arrow"></i></button>
 		</div>
 	</article>
 </div>

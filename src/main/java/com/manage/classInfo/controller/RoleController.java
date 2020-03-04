@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.manage.classInfo.annotation.LogAnnotation;
 import com.manage.classInfo.pojo.Permission;
 import com.manage.classInfo.pojo.Role;
 import com.manage.classInfo.service.PermissionService;
@@ -33,7 +32,6 @@ public class RoleController {
 	JSONObject json = new JSONObject();
 	
 	@GetMapping("/roles")
-	@LogAnnotation(desc = "分页获取所有角色")
 	public PageInfo<Role> list(@RequestParam(value = "start", defaultValue = "1") int start,
 			@RequestParam(value = "size", defaultValue = "10") int size,
 			@RequestParam(value = "keyword", defaultValue = "") String keyword) {
@@ -48,7 +46,6 @@ public class RoleController {
 	}
 	
 	@GetMapping("/roles/{id}")
-	@LogAnnotation(desc = "获取单个角色")
 	public String get(@PathVariable("id") int id) {
 		Role role = roleService.get(id);
 		List<Permission> permissions = permissionService.list(null);
@@ -64,7 +61,6 @@ public class RoleController {
 	}
 	
 	@PostMapping("/rolesBatch")
-	@LogAnnotation(desc = "批量分配角色权限")
 	public String addBatch(@RequestBody JSONObject params) {
 		String[] roleStrs = params.get("roleIds").toString().split(",");
 		Set<String> roleIds = new HashSet<String>();
@@ -81,7 +77,6 @@ public class RoleController {
 	}
 	
 	@PostMapping("/roles")
-	@LogAnnotation(desc = "新增角色")
 	public String add(@RequestBody Role role) {
 		int exist = roleService.exist(role);
 		if (0 != exist) {
@@ -96,14 +91,12 @@ public class RoleController {
 	}
 	
 	@PutMapping("/roles")
-	@LogAnnotation(desc = "修改角色")
 	public String update(@RequestBody Role role) {
 		roleService.update(role);
 		return "success";
 	}
 	
 	@DeleteMapping("/roles/{id}")
-	@LogAnnotation(desc = "删除角色")
 	public String delete(@PathVariable("id") int id) {
 		roleService.delete(id);
 		return "success";

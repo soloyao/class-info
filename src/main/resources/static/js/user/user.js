@@ -54,13 +54,6 @@ $(function() {
 			this.listRoles();
 		},
 		methods: {
-			getCheck() {
-				var str = $("tbody .checked").map(function(item, ele) {
-					console.log($(ele).data("id"));
-					return $(ele).data("id");
-				}).get().join(",");
-				console.log(str);
-			},
 			checkboxAll: function() {
 				if (!this.checkboxAllFlag) {
 					$(".checkbox-parent").addClass("checked");
@@ -95,7 +88,7 @@ $(function() {
 					zTreeNodesBatch = res.data;
 					zTreeNodes = res.data;
 					zTreeObjBatch = $.fn.zTree.init($("#treeBatch"), settingBatch, zTreeNodesBatch);
-					zTreeObjBatch.checkNode(zTreeObjBatch.getNodeByParam("name", "用户", null), true ,false);
+					zTreeObjBatch.checkNode(zTreeObjBatch.getNodeByParam("name", "注册会员", null), true ,false);
 					zTreeObj = $.fn.zTree.init($("#tree"), setting, zTreeNodes);
 					zTreeObjBatch.expandAll(true);
 					zTreeObj.expandAll(true);

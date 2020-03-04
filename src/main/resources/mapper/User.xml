@@ -70,4 +70,8 @@
     	<insert id="add" useGeneratedKeys="true" keyProperty="id">
     		insert into user(name, password, realname, phone, sex) values(#{name}, #{password}, #{realname}, #{phone}, #{sex})
     	</insert>
+    	
+    	<insert id="register" useGeneratedKeys="true" keyProperty="id">
+    		insert into user(name, password) values(#{name}, #{password})
+    	</insert>
     </mapper>

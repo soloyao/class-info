@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.manage.classInfo.annotation.LogAnnotation;
 import com.manage.classInfo.pojo.Hotel;
 import com.manage.classInfo.service.HotelService;
 
@@ -26,7 +25,6 @@ public class HotelController {
 	@Autowired HotelService hotelService;
 	
 	@GetMapping("/hotels")
-	@LogAnnotation(desc = "分页获取所有旅馆数据")
 	public PageInfo<Hotel> list(@RequestParam(value = "start", defaultValue = "1") int start,
 			@RequestParam(value = "size", defaultValue = "10") int size,
 			@RequestParam(value = "keyword", defaultValue = "") String keyword) {
@@ -41,28 +39,24 @@ public class HotelController {
 	}
 	
 	@GetMapping("/hotels/{id}")
-	@LogAnnotation(desc = "获取单个旅馆")
 	public Hotel get(@PathVariable("id") int id) {
 		Hotel hotel = hotelService.get(id);
 		return hotel;
 	}
 	
 	@PostMapping("/hotels")
-	@LogAnnotation(desc = "新增旅馆")
 	public String add(@RequestBody Hotel hotel) {
 		hotelService.add(hotel);
 		return "success";
 	}
 	
 	@PutMapping("/hotels")
-	@LogAnnotation(desc = "修改旅馆")
 	public String update(@RequestBody Hotel hotel) {
 		hotelService.update(hotel);
 		return "success";
 	}
 	
 	@DeleteMapping("/hotels/{id}")
-	@LogAnnotation(desc = "删除旅馆")
 	public String delete(@PathVariable("id") int id) {
 		hotelService.delete(id);
 		return "success";

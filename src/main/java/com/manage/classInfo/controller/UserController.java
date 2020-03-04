@@ -23,7 +23,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.manage.classInfo.annotation.LogAnnotation;
 import com.manage.classInfo.pojo.Role;
 import com.manage.classInfo.pojo.User;
 import com.manage.classInfo.service.RoleService;
@@ -34,8 +33,21 @@ public class UserController {
 	@Autowired UserService userService;
 	@Autowired RoleService roleService;
 	
+	@PostMapping("/register")
+	public String register(@RequestBody User user) {
+		int exist = userService.exist(user);
+		JSONObject json = new JSONObject();
+		if (0 != exist) {
+			json.put("code", "1");
+			json.put("msg", "用户名已存在");
+		} else {
+			json.put("code", "0");
+			userService.register(user);
+		}
+		return json.toJSONString();
+	}
+	
 	@PostMapping("/login")
-	@LogAnnotation(desc = "登录")
 	public String login(@RequestBody User user, HttpSession session) {
 		User loginUser = userService.login(user);
 		JSONObject json = new JSONObject();
@@ -50,7 +62,6 @@ public class UserController {
 	}
 	
 	@GetMapping("/logout")
-	@LogAnnotation(desc = "注销")
 	public void logout(HttpSession session) {
 		User user = (User) session.getAttribute("user");
 		if (null != user) {
@@ -59,7 +70,6 @@ public class UserController {
 	}
 	
 	@GetMapping("/users")
-	@LogAnnotation(desc = "分页获取所有用户")
 	public PageInfo<User> list(@RequestParam(value = "start", defaultValue = "1") int start,
 			@RequestParam(value = "size", defaultValue = "10") int size,
 			@RequestParam(value = "keyword", defaultValue = "") String keyword) {
@@ -74,7 +84,6 @@ public class UserController {
 	}
 	
 	@GetMapping("/users/{id}")
-	@LogAnnotation(desc = "获取单个用户")
 	public String get(@PathVariable("id") int id) {
 		User user = userService.get(id);
 		List<Role> roles = roleService.list(null);
@@ -91,7 +100,6 @@ public class UserController {
 	}
 	
 	@PostMapping("/usersBatch")
-	@LogAnnotation(desc = "批量分配用户角色")
 	public String addBatch(@RequestBody JSONObject params) {
 		String[] userStrs = params.get("userIds").toString().split(",");
 		Set<String> userIds = new HashSet<String>();
@@ -108,7 +116,6 @@ public class UserController {
 	}
 	
 	@PostMapping("/users")
-	@LogAnnotation(desc = "新增用户")
 	public String add(@RequestBody User user) throws NoSuchAlgorithmException {
 		int exist = userService.exist(user);
 		JSONObject json = new JSONObject();
@@ -124,14 +131,12 @@ public class UserController {
 	}
 	
 	@PutMapping("/users")
-	@LogAnnotation(desc = "修改用户")
 	public String update(@RequestBody User user) throws NoSuchAlgorithmException {
 		userService.update(user);
 		return "success";
 	}
 	
 	@DeleteMapping("/users/{id}")
-	@LogAnnotation(desc = "删除用户")
 	public String delete(@PathVariable("id") int id) {
 		userService.delete(id);
 		return "success";

@@ -4,14 +4,17 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.manage.classInfo.annotation.LogAnnotation;
-
 @Controller
 public class IndexController {
 	@GetMapping("/login")
-	@LogAnnotation(desc = "跳转至登录页面")
 	public ModelAndView login() {
 		ModelAndView mav = new ModelAndView("login/login2");
+		return mav;
+	}
+	
+	@GetMapping("/register")
+	public ModelAndView register() {
+		ModelAndView mav = new ModelAndView("login/register");
 		return mav;
 	}
 	
@@ -34,58 +37,86 @@ public class IndexController {
 	}
 	
 	@GetMapping("/index")
-	@LogAnnotation(desc = "跳转至首页")
 	public ModelAndView index() {
 		ModelAndView mav = new ModelAndView("index/index");
 		return mav;
 	}
 	
 	@GetMapping("/listCategory")
-	@LogAnnotation(desc = "跳转至分类管理页面")
 	public ModelAndView listCategory() {
 		ModelAndView mav = new ModelAndView("category/listCategory");
 		return mav;
 	}
 	
 	@GetMapping("/listUser")
-	@LogAnnotation(desc = "跳转至用户管理页面")
 	public ModelAndView listUser() {
 		ModelAndView mav = new ModelAndView("user/listUser");
 		return mav;
 	}
 	
 	@GetMapping("/listRole")
-	@LogAnnotation(desc = "跳转至角色管理页面")
 	public ModelAndView listRole() {
 		ModelAndView mav = new ModelAndView("role/listRole");
 		return mav;
 	}
 	
 	@GetMapping("/listPermission")
-	@LogAnnotation(desc = "跳转至菜单管理页面")
 	public ModelAndView listPermission() {
 		ModelAndView mav = new ModelAndView("permission/listPermission");
 		return mav;
 	}
 	
 	@GetMapping("/listHotel")
-	@LogAnnotation(desc = "跳转至旅馆管理页面")
 	public ModelAndView listHotel() {
 		ModelAndView mav = new ModelAndView("hotel/listHotel");
 		return mav;
 	}
 	
-	@GetMapping("/listHero")
-	@LogAnnotation(desc = "跳转至英雄管理页面")
-	public ModelAndView listHero() {
-		ModelAndView mav = new ModelAndView("hero/listHero");
+	@GetMapping("/listAddressBook")
+	public ModelAndView listAddressBook() {
+		ModelAndView mav = new ModelAndView("class/listAddressBook");
 		return mav;
 	}
 	
-	@GetMapping("/listSystemLog")
-	@LogAnnotation(desc = "跳转至日志管理页面")
-	public ModelAndView listSystemLog() {
-		ModelAndView mav = new ModelAndView("systemLog/listSystemLog");
+	@GetMapping("/listAddressBookManage")
+	public ModelAndView listAddressBookManage() {
+		ModelAndView mav = new ModelAndView("class/listAddressBookManage");
+		return mav;
+	}
+	
+	@GetMapping("/listPhotoManage")
+	public ModelAndView listPhotoManage() {
+		ModelAndView mav = new ModelAndView("class/listPhotoManage");
+		return mav;
+	}
+	
+	@GetMapping("/listPhoto")
+	public ModelAndView listPhoto() {
+		ModelAndView mav = new ModelAndView("class/listPhoto");
+		return mav;
+	}
+	
+	@GetMapping("/listMessageManage")
+	public ModelAndView listMessageManage() {
+		ModelAndView mav = new ModelAndView("class/listMessageManage");
+		return mav;
+	}
+	
+	@GetMapping("/listMessage")
+	public ModelAndView listMessage() {
+		ModelAndView mav = new ModelAndView("class/listMessage");
+		return mav;
+	}
+	
+	@GetMapping("/listClassInfoManage")
+	public ModelAndView listClassInfoManage() {
+		ModelAndView mav = new ModelAndView("class/listClassInfoManage");
+		return mav;
+	}
+	
+	@GetMapping("/listClassInfo")
+	public ModelAndView listClassInfo() {
+		ModelAndView mav = new ModelAndView("class/listClassInfo");
 		return mav;
 	}
 	

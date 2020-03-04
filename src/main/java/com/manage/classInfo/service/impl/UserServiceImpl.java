@@ -94,4 +94,13 @@ public class UserServiceImpl implements UserService {
 		return userMapper.get(id);
 	}
 
+	@Override
+	public void register(User user) {
+		userMapper.register(user);
+		UserRole userRole = new UserRole();
+		userRole.setRid(4);//写死（注册会员）
+		userRole.setUid(user.getId());
+		userMapper.addRoleByUserId(userRole);
+	}
+
 }

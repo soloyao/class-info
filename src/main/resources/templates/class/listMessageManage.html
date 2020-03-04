@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<div th:replace="include::include"></div>
+	<script src="./static/js/common/component-pager.js"></script>
+	<script src="./static/js/common/component-table.js"></script>
+	<link href="./static/css/class/classCommon.css" rel="stylesheet" />
+	<script src="./static/js/class/messageManage.js"></script>
+</head>
+<body>
+	<div id="app">
+		<div class="col-md-12 content table-content load-indicator" :class="isLoading?'loading':''" data-loading="正在加载">
+			<div class="panel">
+				<div class="panel-heading">
+					<!-- 头部开始 -->
+					<div id="top-div">
+						<!-- 搜索开始 -->
+						<div class="input-group search-div">
+							<input type="text" class="form-control" id="keyword" placeholder="请输入关键词" />
+							<span class="input-group-btn">
+								<button class="btn btn-primary" @click="search">搜索</button>
+								<button class="btn btn-default" @click="reset">重置</button>
+							</span>
+						</div>
+						<!-- 搜索结束 -->
+					</div>
+					<!-- 头部结束 -->
+				</div>
+				<div class="panel-body">
+					<!-- 列表开始 -->
+					<div style="height:100%;overflow:auto;">
+						<div v-if="messages && messages.length > 0" class="list list-condensed">
+							<div class="items items-hover">
+								<div v-for="m in messages" class="item" style="text-align:left;">
+									<div class="item-heading">
+										<div class="pull-right">
+											<button @click="deleteItem(m.id)" class="btn btn-xs btn-danger"><i class="icon icon-times"></i>删除</button>
+										</div>
+										<h4><a href="#">{{m.title}}</a></h4>
+									</div>
+									<div class="item-content">
+										<div class="text">{{m.content}}</div>
+									</div>
+									<div class="item-footer">
+										<a href="#" class="text-muted"><span class="text-muted">{{m.createtime}}</span>&nbsp;&nbsp;by&nbsp;&nbsp;<span>{{m.name}}</span></a>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div v-if="messages && messages.length == 0" style="color:#999;padding:15px;line-height:100px;text-align:center;">
+							暂无数据
+						</div>
+					</div>
+					<!-- 列表结束 -->
+				</div>
+				<div class="panel-footer">
+					<!-- 分页开始 -->
+					<component-pager v-bind.sync="pagination" v-on:list="list"></component-pager>
+					<!-- 分页结束 -->
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

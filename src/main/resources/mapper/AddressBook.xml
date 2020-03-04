@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+    <mapper namespace="com.manage.classInfo.mapper.AddressBookMapper">
+    	<select id="list" resultType="AddressBook">
+    		select * from address_book
+    		<if test="keyword != null">
+    			where name like concat('%', #{keyword}, '%') or studyNumber like concat('%', #{keyword}, '%')
+    		</if>
+    	</select>
+    	<insert id="add">
+    		insert into address_book(studyNumber, name, nativePlace, phone, qqNumber, address)
+    		values(#{studyNumber}, #{name}, #{nativePlace}, #{phone}, #{qqNumber}, #{address})
+    	</insert>
+    	<delete id="delete">
+    		delete from address_book where id = #{id}
+    	</delete>
+    	<update id="update">
+    		update address_book set studyNumber = #{studyNumber}, name = #{name}, nativePlace = #{nativePlace}, phone = #{phone}, qqNumber = #{qqNumber},
+    		address = #{address} where id = #{id}
+    	</update>
+    	<select id="get" resultType="AddressBook">
+    		select * from address_book where id = #{id}
+    	</select>
+    </mapper>
