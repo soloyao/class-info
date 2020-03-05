@@ -19,6 +19,7 @@
     		<result column="phone" property="phone"/>
     		<result column="realname" property="realname"/>
     		<result column="sex" property="sex"/>
+    		<result column="money" property="money"/>
     		
     		<collection property="roles" ofType="Role"
     		javaType="java.util.List" select="getRoleByUserId" column="id">
@@ -51,6 +52,10 @@
     		select * from user where id = #{id}
     	</select>
     	
+    	<select id="getByName" resultType="User">
+    		select * from user where name = #{name}
+    	</select>
+    	
     	<delete id="delete">
     		delete from user where id = #{id}
     	</delete>
@@ -64,14 +69,18 @@
     	</insert>
     	
     	<update id="update">
-    		update user set name = #{name}, password = #{password}, realname = #{realname}, phone = #{phone}, sex = #{sex} where id = #{id}
+    		update user set name = #{name}, password = #{password}, realname = #{realname}, phone = #{phone}, sex = #{sex}, money = #{money} where id = #{id}
     	</update>
     	
     	<insert id="add" useGeneratedKeys="true" keyProperty="id">
-    		insert into user(name, password, realname, phone, sex) values(#{name}, #{password}, #{realname}, #{phone}, #{sex})
+    		insert into user(name, password, realname, phone, sex, money) values(#{name}, #{password}, #{realname}, #{phone}, #{sex}, #{money})
     	</insert>
     	
     	<insert id="register" useGeneratedKeys="true" keyProperty="id">
     		insert into user(name, password) values(#{name}, #{password})
     	</insert>
+    	
+    	<update id="updateMoney">
+    		update user set money = #{money} where name = #{name}
+    	</update>
     </mapper>

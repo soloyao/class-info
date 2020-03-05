@@ -42,12 +42,6 @@ public class IndexController {
 		return mav;
 	}
 	
-	@GetMapping("/listCategory")
-	public ModelAndView listCategory() {
-		ModelAndView mav = new ModelAndView("category/listCategory");
-		return mav;
-	}
-	
 	@GetMapping("/listUser")
 	public ModelAndView listUser() {
 		ModelAndView mav = new ModelAndView("user/listUser");
@@ -63,12 +57,6 @@ public class IndexController {
 	@GetMapping("/listPermission")
 	public ModelAndView listPermission() {
 		ModelAndView mav = new ModelAndView("permission/listPermission");
-		return mav;
-	}
-	
-	@GetMapping("/listHotel")
-	public ModelAndView listHotel() {
-		ModelAndView mav = new ModelAndView("hotel/listHotel");
 		return mav;
 	}
 	
@@ -117,6 +105,24 @@ public class IndexController {
 	@GetMapping("/listClassInfo")
 	public ModelAndView listClassInfo() {
 		ModelAndView mav = new ModelAndView("class/listClassInfo");
+		return mav;
+	}
+	
+	@GetMapping("/listMoneyInManage")
+	public ModelAndView listMoneyInManage() {
+		ModelAndView mav = new ModelAndView("class/listMoneyInManage");
+		return mav;
+	}
+	
+	@GetMapping("/listMoneyOutManage")
+	public ModelAndView listMoneyOutManage() {
+		ModelAndView mav = new ModelAndView("class/listMoneyOutManage");
+		return mav;
+	}
+	
+	@GetMapping("/listMoneyOut")
+	public ModelAndView listMoneyOut() {
+		ModelAndView mav = new ModelAndView("class/listMoneyOut");
 		return mav;
 	}
 	

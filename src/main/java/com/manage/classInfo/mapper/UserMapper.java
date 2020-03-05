@@ -11,6 +11,7 @@ import com.manage.classInfo.pojo.UserRole;
 
 @Mapper
 public interface UserMapper {
+	User getByName(String name);
 	User login(User user);
 	void register(User user);
 	int exist(User user);
@@ -21,4 +22,5 @@ public interface UserMapper {
 	void deleteRoleByUserId(int id);
 	User get(int id);
 	void addRoleByUserId(UserRole userRole);
+	void updateMoney(User user);
 }

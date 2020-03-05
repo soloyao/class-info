@@ -36,7 +36,7 @@ $(function() {
 	var data4Vue = {
 		roles: [],
 		users: [],
-		user4Add: {id: 0, name: "", password: "", realname: "", phone: "", sex: "", roles: []},
+		user4Add: {id: 0, name: "", password: "", realname: "", phone: "", sex: "", money: 0, roles: []},
 		pagination: {},
 		keyword: "",
 		isEditShow: false,
@@ -125,6 +125,10 @@ $(function() {
 					myzui._error("必填参数不能为空");
 					return;
 				}
+				if (this.user4Add.money < 0) {
+					myzui._error("班费不能小于0");
+					return;
+				}
 				if (zTreeObj.getCheckedNodes(true).length == 0) {
 					myzui._error("请给用户分配一个角色");
 					return;
@@ -138,7 +142,7 @@ $(function() {
 					axios.post(url, _this.user4Add).then(function(res) {
 						if (res.data.code == 0) {
 							_this.list(1);
-							_this.user4Add = {id: 0, name: "", password: "", realname: "", phone: "", sex: "", roles: []};
+							_this.user4Add = {id: 0, name: "", password: "", realname: "", phone: "", sex: "", money: 0, roles: []};
 							myzui._success(res.data.msg);
 							_this.isEditShow = false;
 						} else {
@@ -148,7 +152,7 @@ $(function() {
 				} else { //update
 					axios.put(url, _this.user4Add).then(function(res) {
 						_this.list(1);
-						_this.user4Add = {id: 0, name: "", password: "", realname: "", phone: "", sex: "", roles: []};
+						_this.user4Add = {id: 0, name: "", password: "", realname: "", phone: "", sex: "", money: 0, roles: []};
 						myzui._success(res.data);
 						_this.isEditShow = false;
 					});
@@ -160,7 +164,7 @@ $(function() {
 			addEdit: function() {
 				this.isEditShow = true;
 				this.editTitle = "新增";
-				this.user4Add = {id: 0, name: "", password: "", realname: "", phone: "", sex: "", roles: []};
+				this.user4Add = {id: 0, name: "", password: "", realname: "", phone: "", sex: "", money: 0, roles: []};
 				zTreeObj.checkNode(zTreeObj.getNodeByParam("name", "用户", null), true ,false);
 			},
 			updateEdit: function(user) {
@@ -172,6 +176,7 @@ $(function() {
 				this.user4Add.realname = user.realname;
 				this.user4Add.phone = user.phone;
 				this.user4Add.sex = user.sex;
+				this.user4Add.money = user.money;
 				zTreeObj.checkNode(zTreeObj.getNodeByParam("id", user.roles.length > 0 ? user.roles[0].id : 0, null), true, false);
 			},
 			list: function(start) {
@@ -194,7 +199,7 @@ $(function() {
 				axios.post(url, this.user4Add).then(function(res) {
 					if (res.data.code == 0) {
 						_this.list(1);
-						_this.user4Add = {id: 0, name: "", password: "", realname: "", phone: "", sex: ""};
+						_this.user4Add = {id: 0, name: "", password: "", realname: "", phone: "", sex: "", money: 0};
 						myzui._success(res.data.msg);
 					} else {
 						myzui._error(res.data.msg);

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<div th:replace="include::include"></div>
+	<script src="./static/js/common/component-pager.js"></script>
+	<script src="./static/js/common/component-table.js"></script>
+	<link href="./static/css/class/classCommon.css" rel="stylesheet" />
+	<script src="./static/js/class/moneyInManage.js"></script>
+</head>
+<body>
+	<div id="app">
+		<div class="col-md-12 content table-content load-indicator" :class="isLoading?'loading':''" data-loading="正在加载">
+			<div class="panel">
+				<div class="panel-heading">
+					<!-- 头部开始 -->
+					<div id="top-div">
+						<!-- 搜索开始 -->
+						<div class="input-group search-div">
+							<input type="text" class="form-control" id="keyword" placeholder="请输入关键词" />
+							<span class="input-group-btn">
+								<button class="btn btn-primary" @click="search">搜索</button>
+								<button class="btn btn-default" @click="reset">重置</button>
+							</span>
+						</div>
+						<span style="margin-top:8px;margin-right:1050px;">班费总额：<span style="font-weight:bold;color:red;">{{allMoney}}</span></span>
+						<!-- 搜索结束 -->
+					</div>
+					<!-- 头部结束 -->
+				</div>
+				<div class="panel-body">
+					<!-- 表格开始 -->
+					<div style="height:100%;overflow:auto;">
+						<table class="table table-hover table-striped" style="margin:0px;">
+							<thead>
+								<tr>
+									<th style="width:16px;"><div @click="checkboxAll" class="checkbox-primary checkbox-parent" style="width:16px;"><label></label></div></th>
+									<th>编号</th>
+									<th>用户名</th>
+									<th>姓名</th>
+									<th>剩余班费</th>
+									<th>操作</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr v-if="users && users.length > 0" v-for="u in users">
+									<td style="width:16px;"><div class="checkbox" class="checkbox-primary checkbox-children" style="width:16px;" :data-id="u.id"><label></label></div></td>
+									<td>{{u.id}}</td>
+									<td>{{u.name}}</td>
+									<td>{{u.realname}}</td>
+									<td>{{u.money}}</td>
+									<td>
+										<button class="btn btn-xs btn-primary" @click="inMoney(u)">缴纳班费</button>
+									</td>
+								</tr>
+								<tr v-if="users && users.length == 0">
+									<td colspan="6" align="center" style="text-align:center;">暂无数据</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<!-- 表格结束 -->
+				</div>
+				<div class="panel-footer">
+					<!-- 分页组件开始 -->
+					<component-pager v-bind.sync="pagination" v-on:list="list"></component-pager>
+					<!-- 分页组件结束 -->
+				</div>
+			</div>
+		</div>
+		
+		<!-- 缴纳班费框开始 -->
+		<div class="modal fade" id="inMoneyModal">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button class="close" data-dismiss="modal"><span aria-hidden="true">x</span><span class="sr-only">关闭</span></button>
+						<h4 class="modal-title">缴纳班费</h4>
+					</div>
+					<div class="modal-body">
+						<div class="content">
+							<div class="form-horizontal">
+								<div class="form-group">
+									<label for="name" class="col-sm-2 required">用户名</label>
+									<div class="col-sm-9">
+										<input class="form-control" v-model="money4Add.name" id="name" readonly />
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="count" class="col-sm-2 required">缴纳金额</label>
+									<div class="col-sm-9">
+										<input class="form-control" v-model="money4Add.count" id="count" type="number" />
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button class="btn btn-default" data-dismiss="modal">关闭</button>
+						<button class="btn btn-primary" @click="submit">确认缴纳</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- 缴纳班费框结束 -->
+	</div>
+</body>
+</html>

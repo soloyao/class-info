@@ -10,4 +10,11 @@ public class TimeUtil {
 		   String dateString = formatter.format(currentTime);
 		   return dateString;
 		}
+	
+	public static String getStringDay() {
+		Date currentTime = new Date();
+		   SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+		   String dateString = formatter.format(currentTime);
+		   return dateString;
+	}
 }

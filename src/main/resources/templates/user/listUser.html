@@ -39,6 +39,7 @@
 								<th width="282">姓名</th>
 								<th width="305">电话</th>
 								<th width="178">性别</th>
+								<th width="178">剩余班费（元）</th>
 								<th width="407">关联角色</th>
 								<th width="230">操作</th>
 						 	</thead>
@@ -54,6 +55,7 @@
 									<td width="282">{{user.realname}}</td>
 									<td width="305">{{user.phone}}</td>
 									<td width="178">{{user.sex}}</td>
+									<th width="178">{{user.money}}</th>
 									<td width="407"><template v-for="role in user.roles">{{role.name}}</template></td>
 									<td width="230">
 										<button class="btn btn-xs btn-primary" @click="updateEdit(user)"><i class="icon icon-pencil"></i></button>
@@ -122,6 +124,12 @@
 					<label for="sex" class="col-sm-3 required">性别</label>
 					<div class="col-sm-9">
 						<input class="form-control" v-model="user4Add.sex" id="sex" placeholder="性别" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="money" class="col-sm-3 required">班费</label>
+					<div class="col-sm-9">
+						<input class="form-control" type="number" v-model="user4Add.money" id="money" readonly placeholder="班费" />
 					</div>
 				</div>
 				<span>关联角色</span>
