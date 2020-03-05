@@ -4,5 +4,5 @@ import com.manage.classInfo.pojo.MoneyIn;
 
 public interface MoneyInService {
 	void add(MoneyIn moneyIn);
-	int allMoney();
+	double allMoney();
 }

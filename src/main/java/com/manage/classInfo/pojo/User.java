@@ -10,11 +10,11 @@ public class User {
 	private String realname;
 	private String sex;
 	private List<Role> roles;
-	private int money;
-	public int getMoney() {
+	private double money;
+	public double getMoney() {
 		return money;
 	}
-	public void setMoney(int money) {
+	public void setMoney(double money) {
 		this.money = money;
 	}
 	public List<Role> getRoles() {

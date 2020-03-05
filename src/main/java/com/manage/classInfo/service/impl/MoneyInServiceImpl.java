@@ -25,7 +25,7 @@ public class MoneyInServiceImpl implements MoneyInService {
 	}
 
 	@Override
-	public int allMoney() {
+	public double allMoney() {
 		return moneyInMapper.allMoney();
 	}
 

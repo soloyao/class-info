@@ -16,4 +16,13 @@
     	<select id="get" resultType="MoneyOut">
     		select id, content, count, out_time as 'outTime', name, left_money as 'leftMoney' from money_out where id = #{id}
     	</select>
+    	<select id="getUserCount" resultType="int">
+    		select count(id) from user
+    	</select>
+    	<select id="listAllUser" resultType="User">
+    		select * from user
+    	</select>
+    	<update id="updateMoneyByUser">
+    		update user set money = #{money} where id = #{id}
+    	</update>
     </mapper>

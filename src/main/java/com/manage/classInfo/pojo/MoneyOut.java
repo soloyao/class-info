@@ -3,10 +3,10 @@ package com.manage.classInfo.pojo;
 public class MoneyOut {
 	private int id;
 	private String content;
-	private int count;
+	private double count;
 	private String outTime;
 	private String name;
-	private int leftMoney;
+	private double leftMoney;
 	public int getId() {
 		return id;
 	}
@@ -19,10 +19,10 @@ public class MoneyOut {
 	public void setContent(String content) {
 		this.content = content;
 	}
-	public int getCount() {
+	public double getCount() {
 		return count;
 	}
-	public void setCount(int count) {
+	public void setCount(double count) {
 		this.count = count;
 	}
 	public String getOutTime() {
@@ -37,13 +37,13 @@ public class MoneyOut {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public int getLeftMoney() {
+	public double getLeftMoney() {
 		return leftMoney;
 	}
-	public void setLeftMoney(int leftMoney) {
+	public void setLeftMoney(double leftMoney) {
 		this.leftMoney = leftMoney;
 	}
-	public MoneyOut(int id, String content, int count, String outTime, String name, int leftMoney) {
+	public MoneyOut(int id, String content, double count, String outTime, String name, double leftMoney) {
 		super();
 		this.id = id;
 		this.content = content;

@@ -7,7 +7,7 @@
     	<insert id="add">
     		insert into money_in(name, count, in_date) values(#{name}, #{count}, #{inDate})
     	</insert>
-    	<select id="allMoney" resultType="int">
+    	<select id="allMoney" resultType="double">
     		select sum(money) from user
     	</select>
     </mapper>

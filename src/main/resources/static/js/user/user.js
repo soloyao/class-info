@@ -113,7 +113,7 @@ $(function() {
 				}
 				axios.post("usersBatch", {userIds: userIds, roleIds: roleIds}).then(function(res) {
 					myzui._success("角色分配成功");
-					zTreeObjBatch.checkNode(zTreeObjBatch.getNodeByParam("name", "用户", null), true ,false);
+					zTreeObjBatch.checkNode(zTreeObjBatch.getNodeByParam("name", "注册会员", null), true ,false);
 					_this.list(1);
 					_this.checkboxAllFlag = true;
 					_this.checkboxAll();

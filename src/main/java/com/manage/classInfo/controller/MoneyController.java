@@ -41,19 +41,14 @@ public class MoneyController {
 	public String moneyOut(@RequestBody MoneyOut moneyOut, HttpSession session) {
 		User user = (User) session.getAttribute("user");
 		String userName = user.getName();
-		moneyOut.setName(userName);
-		int allMoney = moneyInService.allMoney();
-		int leftMoney = allMoney - moneyOut.getCount();
-		moneyOut.setLeftMoney(leftMoney);
-		moneyOut.setOutTime(TimeUtil.getStringDate());
-		moneyOutService.add(moneyOut);
+		moneyOutService.add(moneyOut, userName);
 		JSONObject json = new JSONObject();
 		json.put("code", "0");
 		return json.toJSONString();
 	}
 	
 	@GetMapping("/allMoney")
-	public int allMoney() {
+	public double allMoney() {
 		return moneyInService.allMoney();
 	}
 	
