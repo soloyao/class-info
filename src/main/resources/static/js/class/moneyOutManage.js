@@ -1,9 +1,12 @@
 $(function() {
 	var data4Vue = {
 		moneyOuts: [],
+		users: [],
 		money4Add: {id: 0, content: "", count: 0},
+		money4AddUser: {id: 0, content: "", count: 0, users: ""},
 		pagination: {},
 		keyword: "",
+		userKeyword: "",
 		allMoney: 0,
 		isLoading: false,
 		size: 15
@@ -15,17 +18,46 @@ $(function() {
 		mounted: function() {
 			this.list(1);
 			this.listAllMoney();
+			this.listUser();
 		},
 		methods: {
 			//表格前面的全选框
-			checkboxAll() {
+			checkboxAllUser() {
 				if (!this.checkboxAllFlag) {
-					$(".checkbox-parent").addClass("checked");
-					$(".checkbox-children").addClass("checked");
+					$(".checkbox-parentUser").addClass("checked");
+					$(".checkbox-childrenUser").addClass("checked");
 					this.checkboxAllFlag = true;
 				} else {
-					$(".checkbox-parent").removeClass("checked");
-					$(".checkbox-children").removeClass("checked");
+					$(".checkbox-parentUser").removeClass("checked");
+					$(".checkbox-childrenUser").removeClass("checked");
+					this.checkboxAllFlag = false;
+				}
+			},
+			//单行前面的单选框
+			checkboxUser(e) {
+				var el = e.target;
+				$(el).parent(".checkbox-primary").toggleClass("checked");
+				var allFlag = true;
+				$(".checkbox-childrenUser").map(function(item, ele) {
+					if (!$(ele).hasClass("checked")) {
+						allFlag = false;
+					}
+				});
+				if (allFlag) {
+					$(".checkbox-parentUser").addClass("checked");
+				} else {
+					$(".checkbox-parentUser").removeClass("checked");
+				}
+			},
+			//表格前面的全选框
+			checkboxAll() {
+				if (!this.checkboxAllFlag) {
+					$(".checkbox-parentMoneyOut").addClass("checked");
+					$(".checkbox-childrenMoneyOut").addClass("checked");
+					this.checkboxAllFlag = true;
+				} else {
+					$(".checkbox-parentMoneyOut").removeClass("checked");
+					$(".checkbox-childrenMoneyOut").removeClass("checked");
 					this.checkboxAllFlag = false;
 				}
 			},
@@ -34,15 +66,15 @@ $(function() {
 				var el = e.target;
 				$(el).parent(".checkbox-primary").toggleClass("checked");
 				var allFlag = true;
-				$(".checkbox-children").map(function(item, ele) {
+				$(".checkbox-childrenMoneyOut").map(function(item, ele) {
 					if (!$(ele).hasClass("checked")) {
 						allFlag = false;
 					}
 				});
 				if (allFlag) {
-					$(".checkbox-parent").addClass("checked");
+					$(".checkbox-parentMoneyOut").addClass("checked");
 				} else {
-					$(".checkbox-parent").removeClass("checked");
+					$(".checkbox-parentMoneyOut").removeClass("checked");
 				}
 			},
 			//班费缴纳框中缴纳班费按钮
@@ -61,9 +93,44 @@ $(function() {
 					$("#outMoneyModal").modal("hide");
 					myzui._success("支出成功");
 					_this.list(1);
+					_this.listUser();
 					_this.listAllMoney();
 					_this.money4Add = {id: 0, content: "", count: 0};
 				});
+			},
+			submitUser() {
+				var _this = this;
+				if (_this.money4AddUser.count <= 0 || _this.money4AddUser.count > _this.allMoney) {
+					myzui._error("缴纳金额必须大于0且小于班费总额");
+					return;
+				}
+				if (!_this.money4AddUser.content) {
+					myzui._error("必填参数不能为空");
+					return;
+				}
+				var url = "moneyOutsUser";
+				axios.post(url, _this.money4AddUser).then(function(res) {
+					$("#outMoneyModalUser").modal("hide");
+					myzui._success("支出成功");
+					_this.list(1);
+					_this.listUser();
+					_this.listAllMoney();
+					_this.money4AddUser = {id: 0, content: "", count: 0, users: ""};
+				});
+			},
+			outUserMoney() {
+				var str = $(".userTbody .checked").map(function(item, ele) {
+					return $(ele).data("id");
+				}).get().join(",");
+				if (!str) {
+					myzui._error("请先选择需要支出班费的学生");
+					return;
+				}
+				var _this = this;
+				$("#outMoneyModalUser").modal({
+					show: true
+				});
+				this.money4AddUser = {id: 0, content: "", count: 0, users: str};
 			},
 			//表格中缴纳班费按钮
 			outMoney() {
@@ -106,6 +173,26 @@ $(function() {
 				_this.keyword = $("#keyword").val();
 				if (_this.keyword) {
 					_this.list(1);
+				}
+			},
+			listUser() {
+				var _this = this;
+				var url = "allUsers?keyword=" + _this.userKeyword;
+				axios.get(url).then(function(res) {
+					_this.users = res.data;
+				});
+			},
+			resetUser() {
+				var _this = this;
+				$("#userKeyword").val("");
+				_this.userKeyword = $("#userKeyword").val();
+				_this.listUser();
+			},
+			searchUser() {
+				var _this = this;
+				_this.userKeyword = $("#userKeyword").val();
+				if (_this.userKeyword) {
+					_this.listUser();
 				}
 			}
 		}

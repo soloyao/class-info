@@ -46,8 +46,9 @@ public class UserController {
 	@GetMapping("/currentUser")
 	public String currentUser(HttpSession session) {
 		User currentUser = (User) session.getAttribute("user");
+		User user = userService.getByUser(currentUser);
 		JSONObject json = new JSONObject();
-		json.put("user", currentUser);
+		json.put("user", user);
 		return json.toJSONString();
 	}
 	
@@ -137,6 +138,16 @@ public class UserController {
 		List<User> us = userService.list(paramMap);
 		PageInfo<User> page = new PageInfo<User>(us, 5);
 		return page;
+	}
+	
+	@GetMapping("/allUsers")
+	public List<User> allUsers(@RequestParam(value = "keyword", defaultValue = "") String keyword) {
+		Map<String, String> paramMap = new HashMap<String, String>();
+		if (!StringUtils.isEmpty(keyword)) {
+			paramMap.put("keyword", keyword);
+		}
+		List<User> us = userService.list(paramMap);
+		return us;
 	}
 	
 	/**

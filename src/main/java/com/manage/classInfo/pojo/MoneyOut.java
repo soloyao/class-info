@@ -12,6 +12,13 @@ public class MoneyOut {
 	private String outTime;//支出时间
 	private String name;//经办人
 	private double leftMoney;//剩余总班费
+	private String users;
+	public String getUsers() {
+		return users;
+	}
+	public void setUsers(String users) {
+		this.users = users;
+	}
 	public int getId() {
 		return id;
 	}

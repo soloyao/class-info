@@ -9,21 +9,20 @@
 </head>
 <body>
 	<div id="app">
-		<div class="col-md-12 content table-content load-indicator" :class="isLoading?'loading':''" data-loading="正在加载">
+		<div class="col-md-4 content table-content">
 			<div class="panel">
 				<div class="panel-heading">
 					<!-- 头部开始 -->
-					<div id="top-div">
+					<div id="top-div1">
 						<!-- 搜索开始 -->
-						<div class="input-group search-div">
-							<input type="text" class="form-control" id="keyword" placeholder="请输入关键词" />
+						<div class="input-group search-div" style="width:400px;">
+							<input type="text" class="form-control" id="userKeyword" placeholder="请输入关键词" />
 							<span class="input-group-btn">
-								<button class="btn btn-primary" @click="search">搜索</button>
-								<button class="btn btn-default" @click="reset">重置</button>
-								<button class="btn btn-success" @click="outMoney">支出</button>
+								<button class="btn btn-primary" @click="searchUser">搜索</button>
+								<button class="btn btn-default" @click="resetUser">重置</button>
+								<button class="btn btn-success" @click="outUserMoney">支出所选学生班费</button>
 							</span>
 						</div>
-						<span style="margin-top:8px;margin-right:1050px;">班费总额：<span style="font-weight:bold;color:red;">{{allMoney}}</span></span>
 						<!-- 搜索结束 -->
 					</div>
 					<!-- 头部结束 -->
@@ -34,7 +33,57 @@
 						<table class="table table-hover table-striped" style="margin:0px;">
 							<thead>
 								<tr>
-									<th style="width:16px;"><div @click="checkboxAll" class="checkbox-primary checkbox-parent" style="width:16px;"><label></label></div></th>
+									<th style="width:16px;"><div @click="checkboxAllUser" class="checkbox-primary checkbox-parent checkbox-parentUser" style="width:16px;"><label></label></div></th>
+									<th>编号</th>
+									<th>用户名</th>
+									<th>姓名</th>
+									<th>剩余班费</th>
+								</tr>
+							</thead>
+							<tbody class="userTbody">
+								<tr v-if="users && users.length > 0" v-for="u in users">
+									<td style="width:16px;"><div @click="checkboxUser" class="checkbox-primary checkbox-children checkbox-childrenUser" style="width:16px;" :data-id="u.id"><label></label></div></td>
+									<td>{{u.id}}</td>
+									<td>{{u.name}}</td>
+									<td>{{u.realname}}</td>
+									<td>{{u.money}}</td>
+								</tr>
+								<tr v-if="users && users.length == 0">
+									<td colspan="5" align="center" style="text-align:center;">暂无数据</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<!-- 表格结束 -->
+				</div>
+			</div>
+		</div>
+		<div class="col-md-8 content table-content load-indicator" :class="isLoading?'loading':''" data-loading="正在加载">
+			<div class="panel">
+				<div class="panel-heading">
+					<!-- 头部开始 -->
+					<div id="top-div">
+						<!-- 搜索开始 -->
+						<div class="input-group search-div">
+							<input type="text" class="form-control" id="keyword" placeholder="请输入关键词" />
+							<span class="input-group-btn">
+								<button class="btn btn-primary" @click="search">搜索</button>
+								<button class="btn btn-default" @click="reset">重置</button>
+								<button class="btn btn-success" @click="outMoney">支出所有学生班费</button>
+							</span>
+						</div>
+						<span style="margin-top:8px;margin-right:450px;">班费总额：<span style="font-weight:bold;color:red;">{{allMoney}}</span></span>
+						<!-- 搜索结束 -->
+					</div>
+					<!-- 头部结束 -->
+				</div>
+				<div class="panel-body">
+					<!-- 表格开始 -->
+					<div style="height:100%;overflow:auto;">
+						<table class="table table-hover table-striped" style="margin:0px;">
+							<thead>
+								<tr>
+									<th style="width:16px;"><div @click="checkboxAll" class="checkbox-primary checkbox-parent checkbox-parentMoneyOut" style="width:16px;"><label></label></div></th>
 									<th>编号</th>
 									<th>内容</th>
 									<th>支出金额</th>
@@ -45,7 +94,7 @@
 							</thead>
 							<tbody>
 								<tr v-if="moneyOuts && moneyOuts.length > 0" v-for="m in moneyOuts">
-									<td style="width:16px;"><div class="checkbox" class="checkbox-primary checkbox-children" style="width:16px;" :data-id="m.id"><label></label></div></td>
+									<td style="width:16px;"><div @click="checkbox" class="checkbox-primary checkbox-children checkbox-childrenMoneyOut" style="width:16px;" :data-id="m.id"><label></label></div></td>
 									<td>{{m.id}}</td>
 									<td>{{m.content}}</td>
 									<td>{{m.count}}</td>
@@ -68,6 +117,41 @@
 				</div>
 			</div>
 		</div>
+		
+		<!-- 支出所选学生班费框开始 -->
+		<div class="modal fade" id="outMoneyModalUser">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button class="close" data-dismiss="modal"><span aria-hidden="true">x</span><span class="sr-only">关闭</span></button>
+						<h4 class="modal-title">支出班费</h4>
+					</div>
+					<div class="modal-body">
+						<div class="content">
+							<div class="form-horizontal">
+								<div class="form-group">
+									<label for="contentUser" class="col-sm-2 required">用作</label>
+									<div class="col-sm-9">
+										<textarea class="form-control" v-model="money4AddUser.content" id="contentUser"></textarea>
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="countUser" class="col-sm-2 required">支出金额</label>
+									<div class="col-sm-9">
+										<input class="form-control" v-model="money4AddUser.count" id="countUser" type="number" />
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button class="btn btn-default" data-dismiss="modal">关闭</button>
+						<button class="btn btn-primary" @click="submitUser">确认支出</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- 支出所选学生班费框结束 -->
 		
 		<!-- 支出班费框开始 -->
 		<div class="modal fade" id="outMoneyModal">

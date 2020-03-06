@@ -62,6 +62,16 @@ public class MoneyController {
 		return json.toJSONString();
 	}
 	
+	@PostMapping("/moneyOutsUser")
+	public String moneyOutUser(@RequestBody MoneyOut moneyOut, HttpSession session) {
+		User user = (User) session.getAttribute("user");
+		String userName = user.getName();
+		moneyOutService.addUser(moneyOut, userName);
+		JSONObject json = new JSONObject();
+		json.put("code", "0");
+		return json.toJSONString();
+	}
+	
 	/**
 	 * 获取班费总额
 	 * @return

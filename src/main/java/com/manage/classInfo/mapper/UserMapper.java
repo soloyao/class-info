@@ -23,4 +23,5 @@ public interface UserMapper {
 	User get(int id);
 	void addRoleByUserId(UserRole userRole);
 	void updateMoney(User user);
+	User getByUser(User user);
 }

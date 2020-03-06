@@ -57,6 +57,7 @@ $(function() {
 					$("#inMoneyModal").modal("hide");
 					myzui._success("缴纳成功");
 					_this.list(1);
+					_this.listAllMoney();
 					_this.money4Add = {id: 0, name: "", count: 0};
 				});
 			},

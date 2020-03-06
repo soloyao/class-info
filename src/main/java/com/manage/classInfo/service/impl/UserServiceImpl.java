@@ -108,4 +108,9 @@ public class UserServiceImpl implements UserService {
 		userMapper.addRoleByUserId(userRole);
 	}
 
+	@Override
+	public User getByUser(User user) {
+		return userMapper.getByUser(user);
+	}
+
 }

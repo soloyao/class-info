@@ -83,4 +83,8 @@
     	<update id="updateMoney">
     		update user set money = #{money} where name = #{name}
     	</update>
+    	
+    	<select id="getByUser" resultType="User">
+    		select * from user where id = #{id}
+    	</select>
     </mapper>

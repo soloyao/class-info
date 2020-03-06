@@ -24,19 +24,44 @@ public class MoneyOutServiceImpl implements MoneyOutService {
 	}
 
 	@Override
-	public void add(MoneyOut moneyOut, String userName) {
-		//支出班费时，将每个用户的班费变成剩余班费除以用户数得出的平均班费（保留两位小数点）
+	public void addUser(MoneyOut moneyOut, String userName) {
 		moneyOut.setName(userName);
-		double allMoney = moneyInMapper.allMoney();
-		double leftMoney = allMoney - moneyOut.getCount();
+//		double allMoney = moneyInMapper.allMoney();
 		moneyOut.setOutTime(TimeUtil.getStringDate());
-		int userCount = moneyOutMapper.getUserCount();
+		String[] usersStr = moneyOut.getUsers().split(",");
+		int userCount = usersStr.length;
 		
-		double aveMoney = (double)(Math.round(leftMoney / userCount * 100)) / 100;
+		double aveMoney = (double)(Math.round(moneyOut.getCount() / userCount * 100)) / 100;
 		
 		List<User> users = moneyOutMapper.listAllUser();
 		for (User user : users) {
-			user.setMoney(aveMoney);
+			for (int i = 0; i < usersStr.length; i++) {
+				if (usersStr[i].equals(String.valueOf(user.getId()))) {
+					user.setMoney(user.getMoney() - aveMoney);
+					moneyOutMapper.updateMoneyByUser(user);
+				}
+			}
+		}
+		double allMoney1 = moneyInMapper.allMoney();
+		moneyOut.setLeftMoney(allMoney1);
+		moneyOutMapper.add(moneyOut);
+	}
+	
+	//支出所有班上学生的班费
+	@Override
+	public void add(MoneyOut moneyOut, String userName) {
+		//支出班费时，将每个用户的班费变成剩余班费除以用户数得出的平均班费（保留两位小数点）
+		moneyOut.setName(userName);
+//		double allMoney = moneyInMapper.allMoney();
+//		double leftMoney = allMoney - moneyOut.getCount();
+		moneyOut.setOutTime(TimeUtil.getStringDate());
+		int userCount = moneyOutMapper.getUserCount();
+		
+		double aveMoney = (double)(Math.round(moneyOut.getCount() / userCount * 100)) / 100;
+		
+		List<User> users = moneyOutMapper.listAllUser();
+		for (User user : users) {
+			user.setMoney(user.getMoney() - aveMoney);
 			moneyOutMapper.updateMoneyByUser(user);
 		}
 		double allMoney1 = moneyInMapper.allMoney();

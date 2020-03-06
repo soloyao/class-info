@@ -18,4 +18,5 @@ public interface UserService {
 	void delete(int id);
 	User get(int id);
 	void updateBatch(Set<String> userIds, Set<String> roleIds);
+	User getByUser(User user);
 }
