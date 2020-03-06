@@ -1,10 +1,15 @@
 package com.manage.classInfo.pojo;
 
+/**
+ * @ClassName:ClassPhoto
+ * @Description:班级相册实体
+ * @date:2020年3月6日 上午10:49:57
+ */
 public class ClassPhoto {
-	private int id;
-	private String title;
-	private String content;
-	private String uploadtime;
+	private int id;//主键id
+	private String title;//主题
+	private String content;//相册url
+	private String uploadtime;//上传时间
 	public int getId() {
 		return id;
 	}

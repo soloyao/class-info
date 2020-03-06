@@ -76,13 +76,7 @@ $(function() {
 			this.listPermissions();
 		},
 		methods: {
-			getCheck() {
-				var str = $("tbody .checked").map(function(item, ele) {
-					console.log($(ele).data("id"));
-					return $(ele).data("id");
-				}).get().join(",");
-				console.log(str);
-			},
+			//表格前面的全选框
 			checkboxAll: function(e) {
 				if (!this.checkboxAllFlag) {
 					$(".checkbox-parent").addClass("checked");
@@ -94,6 +88,7 @@ $(function() {
 					this.checkboxAllFlag = false;
 				}
 			},
+			//单行前面的单选框
 			checkbox: function(e) {
 				var el = e.target;
 				$(el).parent(".checkbox-primary").toggleClass("checked");
@@ -109,6 +104,7 @@ $(function() {
 					$(".checkbox-parent").removeClass("checked");
 				}
 			},
+			//获取全部菜单到ztree中
 			listPermissions: function() {
 				var _this = this;
 				var url ="listPermissions";
@@ -123,6 +119,7 @@ $(function() {
 					zTreeObj.expandAll(true);
 				});
 			},
+			//批量分配菜单给角色
 			saveBatch() {
 				var _this = this;
 				var nodes = zTreeObjBatch.transformToArray(zTreeObjBatch.getNodes());
@@ -148,6 +145,7 @@ $(function() {
 					_this.checkboxAll();
 				});
 			},
+			//保存角色
 			save: function() {
 				var _this = this;
 				if (!_this.role4Add.name || !_this.role4Add.desc) {
@@ -179,15 +177,18 @@ $(function() {
 					});
 				}
 			},
+			//取消按钮
 			cancel: function() {
 				this.isEditShow = false;
 			},
+			//新增角色按钮
 			addEdit: function() {
 				this.isEditShow = true;
 				this.editTitle = "新增";
 				this.role4Add = {id: 0, name: "", desc: "", permissions: []};
 				zTreeObj.checkAllNodes(false);
 			},
+			//修改角色按钮
 			updateEdit: function(role) {
 				var _this = this;
 				this.isEditShow = true;
@@ -200,9 +201,11 @@ $(function() {
 					zTreeObj.checkNode(zTreeObj.getNodeByParam("id", item.id, null), true, false);
 				});
 			},
+			//根据页数获取数据
 			list: function(start) {
 				var _this = this;
 				_this.isLoading = true;
+				//传入参数：页码，关键词，一页记录大小
 				var url = "roles?start=" + start + "&keyword=" + _this.keyword + "&size=" + _this.size;
 				axios.get(url).then(function(res) {
 					_this.pagination = res.data;
@@ -210,6 +213,7 @@ $(function() {
 					_this.isLoading = false;
 				});
 			},
+			//保存角色按钮
 			add: function() {
 				var _this = this;
 				var url = "roles";
@@ -227,6 +231,7 @@ $(function() {
 					}
 				});
 			},
+			//删除角色按钮
 			deleteRole: function(id) {
 				var _this = this;
 				myzui.confirm("确认删除？", function() {
@@ -236,12 +241,14 @@ $(function() {
 					});
 				});
 			},
+			//重置
 			reset: function() {
 				var _this = this;
 				$("#keyword").val("");
 				_this.keyword = $("#keyword").val();
 				_this.list(1);
 			},
+			//搜索
 			search: function() {
 				var _this = this;
 				_this.keyword = $("#keyword").val();

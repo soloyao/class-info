@@ -1,11 +1,11 @@
 $(function() {
 	var data4Vue = {
-		addressBooks: [],
+		moneyOuts: [],
 		pagination: {},
 		keyword: "",
+		allMoney: 0,
 		isLoading: false,
-		size: 15,
-		checkboxAllFlag: false
+		size: 15
 	};
 	
 	var vue = new Vue({
@@ -13,6 +13,7 @@ $(function() {
 		data: data4Vue,
 		mounted: function() {
 			this.list(1);
+			this.listAllMoney();
 		},
 		methods: {
 			//表格前面的全选框
@@ -43,26 +44,34 @@ $(function() {
 					$(".checkbox-parent").removeClass("checked");
 				}
 			},
+			//获取剩余班费总额
+			listAllMoney() {
+				var _this = this;
+				var url = "allMoney";
+				axios.get(url).then(function(res) {
+					_this.allMoney = res.data;
+				});
+			},
 			//根据页数获取数据
 			list(start) {
 				var _this = this;
 				_this.isLoading = true;
 				//传入参数：页码，关键词，一页记录大小
-				var url = "addressBooks?start=" + start + "&keyword=" + _this.keyword + "&size=" + _this.size;
+				var url = "moneyOuts?start=" + start + "&keyword=" + _this.keyword + "&size=" + _this.size;
 				axios.get(url).then(function(res) {
 					_this.pagination = res.data;
-					_this.addressBooks = res.data.list;
+					_this.moneyOuts = res.data.list;
 					_this.isLoading = false;
 				});
 			},
-			//重置
+			//重置按钮
 			reset: function() {
 				var _this = this;
 				$("#keyword").val("");
 				_this.keyword = $("#keyword").val();
 				_this.list(1);
 			},
-			//查询
+			//搜索按钮
 			search: function() {
 				var _this = this;
 				_this.keyword = $("#keyword").val();

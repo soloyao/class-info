@@ -25,6 +25,7 @@ public class MoneyOutServiceImpl implements MoneyOutService {
 
 	@Override
 	public void add(MoneyOut moneyOut, String userName) {
+		//支出班费时，将每个用户的班费变成剩余班费除以用户数得出的平均班费（保留两位小数点）
 		moneyOut.setName(userName);
 		double allMoney = moneyInMapper.allMoney();
 		double leftMoney = allMoney - moneyOut.getCount();

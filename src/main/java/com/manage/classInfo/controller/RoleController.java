@@ -25,12 +25,24 @@ import com.manage.classInfo.pojo.Role;
 import com.manage.classInfo.service.PermissionService;
 import com.manage.classInfo.service.RoleService;
 
+/**
+ * @ClassName:RoleController
+ * @Description:角色管理
+ * @date:2020年3月6日 上午10:43:41
+ */
 @RestController
 public class RoleController {
 	@Autowired RoleService roleService;
 	@Autowired PermissionService permissionService;
 	JSONObject json = new JSONObject();
 	
+	/**
+	 * 分页获取所有角色
+	 * @param start
+	 * @param size
+	 * @param keyword
+	 * @return
+	 */
 	@GetMapping("/roles")
 	public PageInfo<Role> list(@RequestParam(value = "start", defaultValue = "1") int start,
 			@RequestParam(value = "size", defaultValue = "10") int size,
@@ -45,6 +57,11 @@ public class RoleController {
 		return page;
 	}
 	
+	/**
+	 * 根据id获取单个角色
+	 * @param id
+	 * @return
+	 */
 	@GetMapping("/roles/{id}")
 	public String get(@PathVariable("id") int id) {
 		Role role = roleService.get(id);
@@ -54,12 +71,21 @@ public class RoleController {
 		return json.toJSONString();
 	}
 	
+	/**
+	 * 获取所有菜单
+	 * @return
+	 */
 	@GetMapping("/listPermissions")
 	public List<Permission> get() {
 		List<Permission> permissions = permissionService.listPermissions();
 		return permissions;
 	}
 	
+	/**
+	 * 为角色批量分配菜单
+	 * @param params
+	 * @return
+	 */
 	@PostMapping("/rolesBatch")
 	public String addBatch(@RequestBody JSONObject params) {
 		String[] roleStrs = params.get("roleIds").toString().split(",");
@@ -76,6 +102,11 @@ public class RoleController {
 		return "success";
 	}
 	
+	/**
+	 * 新增橘色
+	 * @param role
+	 * @return
+	 */
 	@PostMapping("/roles")
 	public String add(@RequestBody Role role) {
 		int exist = roleService.exist(role);
@@ -90,12 +121,22 @@ public class RoleController {
 		return json.toJSONString();
 	}
 	
+	/**
+	 * 修改角色
+	 * @param role
+	 * @return
+	 */
 	@PutMapping("/roles")
 	public String update(@RequestBody Role role) {
 		roleService.update(role);
 		return "success";
 	}
 	
+	/**
+	 * 根据id删除角色
+	 * @param id
+	 * @return
+	 */
 	@DeleteMapping("/roles/{id}")
 	public String delete(@PathVariable("id") int id) {
 		roleService.delete(id);

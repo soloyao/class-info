@@ -36,8 +36,8 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public void add(User user) {
-		userMapper.add(user);
-		if (null != user.getRoles()) {
+		userMapper.add(user);//新增用户基本信息
+		if (null != user.getRoles()) {//将用户对应的角色进行添加
 			for (Role role : user.getRoles()) {
 				UserRole userRole = new UserRole();
 				userRole.setRid(role.getId());

@@ -10,11 +10,13 @@ $(function() {
 			$("#register-name").get(0).select();
 		},
 		methods: {
+			//enter注册
 			registerKeyDown(e) {
 				if (e.keyCode == 13) {
 					this.register();
 				}
 			},
+			//注册按钮
 			register() {
 				var _this = this;
 				var url = "register";

@@ -33,7 +33,8 @@ public class LoginConfiguration extends WebMvcConfigurerAdapter {
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
 		registry.addInterceptor(loginInterceptor)
-		.addPathPatterns("/**")
+		.addPathPatterns("/**")//所有页面跳转都需经过登录拦截器
+		//除去以下这些界面跳转
 		.excludePathPatterns("/login", "/register", "/demo", "/swagger-resources/**", "/v2/**", "/configuration/**", "/categories/**", "/systemLogs/**");
 		super.addInterceptors(registry);
 	}

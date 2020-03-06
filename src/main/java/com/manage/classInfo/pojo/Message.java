@@ -1,11 +1,16 @@
 package com.manage.classInfo.pojo;
 
+/**
+ * @ClassName:Message
+ * @Description:留言板实体
+ * @date:2020年3月6日 上午10:50:31
+ */
 public class Message {
-	private int id;
-	private String name;
-	private String title;
-	private String content;
-	private String createtime;
+	private int id;//主键id
+	private String name;//发布人
+	private String title;//主题
+	private String content;//内容
+	private String createtime;//发布时间
 	public int getId() {
 		return id;
 	}

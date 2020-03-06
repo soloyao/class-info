@@ -10,11 +10,13 @@ $(function() {
 			$("#login-name").get(0).select();
 		},
 		methods: {
+			//enter键登录
 			loginKeyDown: function(e) {
 				if (e.keyCode == 13) {
 					this.login();
 				}
 			},
+			//登录按钮
 			login: function() {
 				var _this = this;
 				var url = "login";

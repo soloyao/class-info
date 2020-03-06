@@ -1,9 +1,14 @@
 package com.manage.classInfo.pojo;
 
+/**
+ * @ClassName:RolePermission
+ * @Description:角色菜单中间实体
+ * @date:2020年3月6日 上午10:53:03
+ */
 public class RolePermission {
-	private int id;
-	private int rid;
-	private int pid;
+	private int id;//主键id
+	private int rid;//角色id
+	private int pid;//菜单id
 	public int getId() {
 		return id;
 	}

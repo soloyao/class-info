@@ -37,8 +37,8 @@ public class RoleServiceImpl implements RoleService {
 
 	@Override
 	public void add(Role role) {
-		roleMapper.add(role);
-		if (null != role.getPermissions()) {
+		roleMapper.add(role);//新增角色基本信息
+		if (null != role.getPermissions()) {//将角色对应的菜单进行添加
 			for (Permission permission : role.getPermissions()) {
 				RolePermission rolePermission = new RolePermission();
 				rolePermission.setPid(permission.getId());

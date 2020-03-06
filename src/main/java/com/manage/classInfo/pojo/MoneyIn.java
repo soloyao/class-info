@@ -1,10 +1,15 @@
 package com.manage.classInfo.pojo;
 
+/**
+ * @ClassName:MoneyIn
+ * @Description:班费缴纳实体
+ * @date:2020年3月6日 上午10:50:57
+ */
 public class MoneyIn {
-	private int id;
-	private String name;
-	private double count;
-	private String inDate;
+	private int id;//主键id
+	private String name;//缴纳人账号
+	private double count;//缴纳金额
+	private String inDate;//缴纳日期
 	public int getId() {
 		return id;
 	}

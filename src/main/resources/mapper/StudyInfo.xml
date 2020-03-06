@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+    <mapper namespace="com.manage.classInfo.mapper.StudyInfoMapper">
+    	<select id="list" resultType="StudyInfo">
+    		select * from study_info
+    		<if test="keyword != null">
+    			where title like concat('%', #{keyword}, '%')
+    		</if>
+    	</select>
+    	<insert id="add">
+    		insert into study_info(name, title, content, createtime)
+    		values(#{name}, #{title}, #{content}, #{createtime})
+    	</insert>
+    	<update id="update">
+    		update study_info set name = #{name}, title = #{title}, content = #{content},
+    		createtime = #{createtime} where id = #{id}
+    	</update>
+    	<delete id="delete">
+    		delete from study_info where id = #{id}
+    	</delete>
+    	<select id="get" resultType="StudyInfo">
+    		select * from study_info where id = #{id}
+    	</select>
+    </mapper>

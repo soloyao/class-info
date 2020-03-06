@@ -58,12 +58,12 @@ public class PermissionServiceImpl implements PermissionService {
 
 	@Override
 	public JSONArray listByUser(User user) {
+		//根据菜单的父菜单id，拼接出一个JSON对象
 		List<Permission> list = permissionMapper.listByUser(user);
 		if (null != list && list.size() != 0) {
 			JSONArray parentArr = new JSONArray();
 			for (Permission parent : list) {
 				if (0 == parent.getPid()) {
-//					System.out.println(parent.getName());
 					JSONObject parentObj = new JSONObject();
 					parentObj.put("id", parent.getId());
 					parentObj.put("name", parent.getName());
@@ -71,7 +71,6 @@ public class PermissionServiceImpl implements PermissionService {
 					JSONArray childrenArr = new JSONArray();
 					for (Permission children : list) {
 						if (parent.getId() == children.getPid()) {
-//							System.out.println("\t" + children.getName());
 							JSONObject childrenObj = new JSONObject();
 							childrenObj.put("id", children.getId());
 							childrenObj.put("name", children.getName());

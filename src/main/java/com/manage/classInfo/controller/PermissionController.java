@@ -25,22 +25,44 @@ import com.manage.classInfo.pojo.Permission;
 import com.manage.classInfo.pojo.User;
 import com.manage.classInfo.service.PermissionService;
 
+/**
+ * @ClassName:PermissionController
+ * @Description:权限管理
+ * @date:2020年3月6日 上午10:42:31
+ */
 @RestController
 public class PermissionController {
 	@Autowired PermissionService permissionService;
 	JSONObject json = new JSONObject();
 	
+	/**
+	 * 根据用户获取对应权限
+	 * @param session
+	 * @return
+	 */
 	@GetMapping("/permissionsByUser")
 	public JSONArray getPermissionsByUser(HttpSession session) {
 		User user = (User) session.getAttribute("user");
 		return permissionService.listByUser(user);
 	}
 	
+	/**
+	 * 获取父菜单
+	 * @return
+	 */
 	@GetMapping("/parentPermissions")
 	public List<Permission> list() {
 		return permissionService.listParentPermissions();
 	}
 	
+	/**
+	 * 分页获取子菜单
+	 * @param start
+	 * @param size
+	 * @param keyword
+	 * @param pid
+	 * @return
+	 */
 	@GetMapping("/permissions")
 	public PageInfo<Permission> list(@RequestParam(value = "start", defaultValue = "1") int start,
 			@RequestParam(value = "size", defaultValue = "10") int size,
@@ -57,12 +79,22 @@ public class PermissionController {
 		return page;
 	}
 	
+	/**
+	 * 根据id获取单个菜单
+	 * @param id
+	 * @return
+	 */
 	@GetMapping("/permissions/{id}")
 	public Permission get(@PathVariable("id") int id) {
 		Permission permission = permissionService.get(id);
 		return permission;
 	}
 	
+	/**
+	 * 新增菜单
+	 * @param permission
+	 * @return
+	 */
 	@PostMapping("/permissions")
 	public String add(@RequestBody Permission permission) {
 		int exist = permissionService.exist(permission);
@@ -77,12 +109,22 @@ public class PermissionController {
 		return json.toJSONString();
 	}
 	
+	/**
+	 * 修改菜单
+	 * @param permission
+	 * @return
+	 */
 	@PutMapping("/permissions")
 	public String update(@RequestBody Permission permission) {
 		permissionService.update(permission);
 		return "success";
 	}
 	
+	/**
+	 * 根据id删除菜单
+	 * @param id
+	 * @return
+	 */
 	@DeleteMapping("/permissions/{id}")
 	public String delete(@PathVariable("id") int id) {
 		permissionService.delete(id);

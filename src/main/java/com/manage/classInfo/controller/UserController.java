@@ -28,11 +28,21 @@ import com.manage.classInfo.pojo.User;
 import com.manage.classInfo.service.RoleService;
 import com.manage.classInfo.service.UserService;
 
+/**
+ * @ClassName:UserController
+ * @Description:用户管理
+ * @date:2020年3月6日 上午10:46:26
+ */
 @RestController
 public class UserController {
 	@Autowired UserService userService;
 	@Autowired RoleService roleService;
 	
+	/**
+	 * 注册
+	 * @param user
+	 * @return
+	 */
 	@PostMapping("/register")
 	public String register(@RequestBody User user) {
 		int exist = userService.exist(user);
@@ -47,6 +57,12 @@ public class UserController {
 		return json.toJSONString();
 	}
 	
+	/**
+	 * 登录
+	 * @param user
+	 * @param session
+	 * @return
+	 */
 	@PostMapping("/login")
 	public String login(@RequestBody User user, HttpSession session) {
 		User loginUser = userService.login(user);
@@ -61,6 +77,10 @@ public class UserController {
 		return json.toJSONString();
 	}
 	
+	/**
+	 * 注销
+	 * @param session
+	 */
 	@GetMapping("/logout")
 	public void logout(HttpSession session) {
 		User user = (User) session.getAttribute("user");
@@ -69,6 +89,13 @@ public class UserController {
 		}
 	}
 	
+	/**
+	 * 分页获取所有用户
+	 * @param start
+	 * @param size
+	 * @param keyword
+	 * @return
+	 */
 	@GetMapping("/users")
 	public PageInfo<User> list(@RequestParam(value = "start", defaultValue = "1") int start,
 			@RequestParam(value = "size", defaultValue = "10") int size,
@@ -83,6 +110,11 @@ public class UserController {
 		return page;
 	}
 	
+	/**
+	 * 根据id获取单个用户
+	 * @param id
+	 * @return
+	 */
 	@GetMapping("/users/{id}")
 	public String get(@PathVariable("id") int id) {
 		User user = userService.get(id);
@@ -93,12 +125,21 @@ public class UserController {
 		return json.toJSONString();
 	}
 	
+	/**
+	 * 获取所有角色
+	 * @return
+	 */
 	@GetMapping("/listRoles")
 	public List<Role> get() {
 		List<Role> roles = roleService.list(null);
 		return roles;
 	}
 	
+	/**
+	 * 为用户批量分配角色
+	 * @param params
+	 * @return
+	 */
 	@PostMapping("/usersBatch")
 	public String addBatch(@RequestBody JSONObject params) {
 		String[] userStrs = params.get("userIds").toString().split(",");
@@ -115,6 +156,12 @@ public class UserController {
 		return "success";
 	}
 	
+	/**
+	 * 新增用户
+	 * @param user
+	 * @return
+	 * @throws NoSuchAlgorithmException
+	 */
 	@PostMapping("/users")
 	public String add(@RequestBody User user) throws NoSuchAlgorithmException {
 		int exist = userService.exist(user);
@@ -130,12 +177,23 @@ public class UserController {
 		return json.toJSONString();
 	}
 	
+	/**
+	 * 修改用户信息
+	 * @param user
+	 * @return
+	 * @throws NoSuchAlgorithmException
+	 */
 	@PutMapping("/users")
 	public String update(@RequestBody User user) throws NoSuchAlgorithmException {
 		userService.update(user);
 		return "success";
 	}
 	
+	/**
+	 * 根据id删除用户
+	 * @param id
+	 * @return
+	 */
 	@DeleteMapping("/users/{id}")
 	public String delete(@PathVariable("id") int id) {
 		userService.delete(id);

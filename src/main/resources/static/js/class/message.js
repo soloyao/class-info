@@ -15,6 +15,7 @@ $(function() {
 			this.list(1);
 		},
 		methods: {
+			//发布留言框中发布按钮
 			submit() {
 				var _this = this;
 				var url = "messages";
@@ -29,15 +30,18 @@ $(function() {
 					_this.message4Add = {id: 0, name: "", title: "", content: ""};
 				});
 			},
+			//页面上方留言按钮
 			add() {
 				$("#messageModal").modal({
 					show: true
 				});
 				this.message4Add = {id: 0, name: "", title: "", content: ""};
 			},
+			//根据页数获取数据
 			list(start) {
 				var _this = this;
 				_this.isLoading = true;
+				//传入参数：页码，关键词，一页记录大小
 				var url = "messages?start=" + start + "&keyword=" + _this.keyword + "&size=" + _this.size;
 				axios.get(url).then(function(res) {
 					_this.pagination = res.data;
@@ -45,12 +49,14 @@ $(function() {
 					_this.isLoading = false;
 				});
 			},
+			//重置按钮
 			reset: function() {
 				var _this = this;
 				$("#keyword").val("");
 				_this.keyword = $("#keyword").val();
 				_this.list(1);
 			},
+			//搜索按钮
 			search: function() {
 				var _this = this;
 				_this.keyword = $("#keyword").val();

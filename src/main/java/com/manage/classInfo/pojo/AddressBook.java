@@ -1,13 +1,18 @@
 package com.manage.classInfo.pojo;
 
+/**
+ * @ClassName:AddressBook
+ * @Description:通讯录实体
+ * @date:2020年3月6日 上午10:48:28
+ */
 public class AddressBook {
-	private int id;
-	private String studyNumber;
-	private String name;
-	private String nativePlace;
-	private String phone;
-	private String qqNumber;
-	private String address;
+	private int id;//主键id
+	private String studyNumber;//学号
+	private String name;//姓名
+	private String nativePlace;//籍贯
+	private String phone;//电话
+	private String qqNumber;//QQ
+	private String address;//家庭地址
 	public int getId() {
 		return id;
 	}

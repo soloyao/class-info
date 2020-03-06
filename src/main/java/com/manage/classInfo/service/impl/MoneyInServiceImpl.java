@@ -17,6 +17,7 @@ public class MoneyInServiceImpl implements MoneyInService {
 	
 	@Override
 	public void add(MoneyIn moneyIn) {
+		//缴纳班费时，先根据缴纳的用户账号获取用户原来的剩余班费，再相加得出现在的班费进行修改
 		User user = userMapper.getByName(moneyIn.getName());
 		user.setMoney(user.getMoney() + moneyIn.getCount());
 		userMapper.updateMoney(user);

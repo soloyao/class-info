@@ -1,10 +1,9 @@
 $(function() {
 	var data4Vue = {
-		messages: [],
-		message4Add: {id: 0, name: "", title: "", content: ""},
+		studyInfos: [],
+		studyInfo4Add: {id: 0, name: "", title: "", content: ""},
 		pagination: {},
 		keyword: "",
-		messageTitle: "",
 		isLoading: false,
 		size: 15
 	};
@@ -13,7 +12,6 @@ $(function() {
 		el: "#app",
 		data: data4Vue,
 		mounted: function() {
-			//初始化调用查询方法
 			this.list(1);
 		},
 		methods: {
@@ -21,7 +19,7 @@ $(function() {
 			deleteItem(id) {
 				var _this = this;
 				myzui.confirm("确认删除？", function() {
-					axios.delete("messages/" + id).then(function(res) {
+					axios.delete("studyInfos/" + id).then(function(res) {
 						_this.list(1);
 					}); 
 				});
@@ -31,10 +29,10 @@ $(function() {
 				var _this = this;
 				_this.isLoading = true;
 				//传入参数：页码，关键词，一页记录大小
-				var url = "messages?start=" + start + "&keyword=" + _this.keyword + "&size=" + _this.size;
+				var url = "studyInfos?start=" + start + "&keyword=" + _this.keyword + "&size=" + _this.size;
 				axios.get(url).then(function(res) {
 					_this.pagination = res.data;
-					_this.messages = res.data.list;
+					_this.studyInfos = res.data.list;
 					_this.isLoading = false;
 				});
 			},

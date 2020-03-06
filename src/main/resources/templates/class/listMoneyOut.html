@@ -5,7 +5,7 @@
 	<script src="./static/js/common/component-pager.js"></script>
 	<script src="./static/js/common/component-table.js"></script>
 	<link href="./static/css/class/classCommon.css" rel="stylesheet" />
-	<script src="./static/js/class/moneyOutManage.js"></script>
+	<script src="./static/js/class/moneyOut.js"></script>
 </head>
 <body>
 	<div id="app">
@@ -20,7 +20,6 @@
 							<span class="input-group-btn">
 								<button class="btn btn-primary" @click="search">搜索</button>
 								<button class="btn btn-default" @click="reset">重置</button>
-								<button class="btn btn-success" @click="outMoney">支出</button>
 							</span>
 						</div>
 						<span style="margin-top:8px;margin-right:1050px;">班费总额：<span style="font-weight:bold;color:red;">{{allMoney}}</span></span>
@@ -68,41 +67,6 @@
 				</div>
 			</div>
 		</div>
-		
-		<!-- 支出班费框开始 -->
-		<div class="modal fade" id="outMoneyModal">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-header">
-						<button class="close" data-dismiss="modal"><span aria-hidden="true">x</span><span class="sr-only">关闭</span></button>
-						<h4 class="modal-title">支出班费</h4>
-					</div>
-					<div class="modal-body">
-						<div class="content">
-							<div class="form-horizontal">
-								<div class="form-group">
-									<label for="content" class="col-sm-2 required">用作</label>
-									<div class="col-sm-9">
-										<textarea class="form-control" v-model="money4Add.content" id="content"></textarea>
-									</div>
-								</div>
-								<div class="form-group">
-									<label for="count" class="col-sm-2 required">支出金额</label>
-									<div class="col-sm-9">
-										<input class="form-control" v-model="money4Add.count" id="count" type="number" />
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="modal-footer">
-						<button class="btn btn-default" data-dismiss="modal">关闭</button>
-						<button class="btn btn-primary" @click="submit">确认支出</button>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- 支出班费框结束 -->
 	</div>
 </body>
 </html>

@@ -22,13 +22,22 @@ import com.manage.classInfo.pojo.MoneyOut;
 import com.manage.classInfo.pojo.User;
 import com.manage.classInfo.service.MoneyInService;
 import com.manage.classInfo.service.MoneyOutService;
-import com.manage.classInfo.util.TimeUtil;
 
+/**
+ * @ClassName:MoneyController
+ * @Description:班费管理
+ * @date:2020年3月6日 上午10:40:10
+ */
 @RestController
 public class MoneyController {
 	@Autowired MoneyInService moneyInService;
 	@Autowired MoneyOutService moneyOutService;
 	
+	/**
+	 * 新增班费缴纳
+	 * @param moneyIn
+	 * @return
+	 */
 	@PostMapping("/moneyIns")
 	public String add(@RequestBody MoneyIn moneyIn) {
 		moneyInService.add(moneyIn);
@@ -37,6 +46,12 @@ public class MoneyController {
 		return json.toJSONString();
 	}
 	
+	/**
+	 * 新增班费支出
+	 * @param moneyOut
+	 * @param session
+	 * @return
+	 */
 	@PostMapping("/moneyOuts")
 	public String moneyOut(@RequestBody MoneyOut moneyOut, HttpSession session) {
 		User user = (User) session.getAttribute("user");
@@ -47,11 +62,22 @@ public class MoneyController {
 		return json.toJSONString();
 	}
 	
+	/**
+	 * 获取班费总额
+	 * @return
+	 */
 	@GetMapping("/allMoney")
 	public double allMoney() {
 		return moneyInService.allMoney();
 	}
 	
+	/**
+	 * 分页获取班费支出记录
+	 * @param start
+	 * @param size
+	 * @param keyword
+	 * @return
+	 */
 	@GetMapping("/moneyOuts")
 	public PageInfo<MoneyOut> list(@RequestParam(value = "start", defaultValue = "1") int start,
 			@RequestParam(value = "size", defaultValue = "10") int size,

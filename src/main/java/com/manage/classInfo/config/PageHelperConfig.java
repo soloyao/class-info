@@ -7,6 +7,11 @@ import org.springframework.context.annotation.Configuration;
  
 import com.github.pagehelper.PageHelper;
  
+/**
+ * @ClassName:PageHelperConfig
+ * @Description:mybatis分页插件配置
+ * @date:2020年3月6日 上午10:30:16
+ */
 @Configuration
 public class PageHelperConfig {
     @Bean

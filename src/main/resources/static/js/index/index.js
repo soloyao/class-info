@@ -22,6 +22,7 @@ $(function() {
 			timeInit();
 		},
 		methods: {
+			//注销按钮
 			logout: function() {
 				myzui.confirm("确认注销？", function() {
 					var url = "logout";
@@ -31,10 +32,12 @@ $(function() {
 					});
 				});
 			},
+			//个人信息按钮
 			personalInfo: function() {
 				var _this = this;
 				$("#infoModal").modal("show");
 			},
+			//初始化权限
 			initNav: function() {
 				var _this = this;
 				var url ="permissionsByUser";
@@ -44,22 +47,20 @@ $(function() {
 					var i = 0;
 					_this.items.map(function(item) {
 						item.icon = icon[i++];
-						/*item.children.map(function(it) {
-							it.icon = icon[i++];
-						});*/
 					});
-//					_this.childrens.push(_this.items[0].children[0]);
-//					_this.active = _this.items[0].children[0];
 				});
 			},
+			//折叠导航
 			toggleNav: function() {
 				this.showNav = this.showNav == "block" ? "none" : "block";
 			},
+			//刷新
 			refreshNav: function() {
 				if (typeof this.active != "undefined") {
 					$("iframe[src='" + this.active.url + "']").attr("src", this.active.url).ready();
 				}
 			},
+			//全屏缩放
 			fullScreen: function() {
 				if (!this.isFullScreen) {
 					this.isFullScreen = true;
@@ -90,6 +91,7 @@ $(function() {
 				    }
 				}
 			},
+			//删除标签页
 			deleteTabs: function(children) {
 				var _this = this;
 				var arr = [];
@@ -114,23 +116,26 @@ $(function() {
 					$("#ifrHome").removeClass("ifr-hide");
 				}
 			},
+			//点击标签页
 			tabsClick: function(children) {
 				this.active = children;
 				$("#tabsHome").removeClass("activeTabs");
 				$("#ifrHome").removeClass("active");
 				$("#ifrHome").addClass("ifr-hide");
 			},
+			//点击首页标签页
 			tabsClickHome: function() {
 				var home = {
 					id: null,
-					name: "home",
-					url: "home"
+					name: "listClassInfo",
+					url: "listClassInfo"
 				};
 				this.active = home;
 				$("#tabsHome").addClass("activeTabs");
 				$("#ifrHome").addClass("active");
 				$("#ifrHome").removeClass("ifr-hide");
 			},
+			//点击导航栏中子菜单
 			childrenClick: function(e, children) {
 				var flag = true;
 				this.childrens.map(function(item) {
@@ -145,12 +150,8 @@ $(function() {
 				$("#tabsHome").removeClass("activeTabs");
 				$("#ifrHome").removeClass("active");
 				$("#ifrHome").addClass("ifr-hide");
-				/*var el = e.target;
-				$(".panel").find("li").removeClass("children");
-				$(".panel").find("a").removeClass("bg");
-				$(el).parent("li").addClass("children");
-				$(el).addClass("bg");*/
 			},
+			//点击导航栏中父菜单
 			parentClick: function(e) {
 				var el = e.target;
 				$(".panel").find("h4").removeClass("parent");

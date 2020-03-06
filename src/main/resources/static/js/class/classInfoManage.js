@@ -15,6 +15,7 @@ $(function() {
 			this.list(1);
 		},
 		methods: {
+			//删除按钮
 			deleteItem(id) {
 				var _this = this;
 				myzui.confirm("确认删除？", function() {
@@ -23,6 +24,7 @@ $(function() {
 					});
 				});
 			},
+			//修改按钮
 			updateItem(c) {
 				var _this = this;
 				$("#classInfoModal").modal({
@@ -33,6 +35,7 @@ $(function() {
 				this.classInfo4Add.title = c.title;
 				this.classInfo4Add.content = c.content;
 			},
+			//发表按钮
 			submit() {
 				var _this = this;
 				if (!_this.classInfo4Add.title || !_this.classInfo4Add.content) {
@@ -56,15 +59,18 @@ $(function() {
 					});
 				}
 			},
+			//发布班级消息按钮
 			add() {
 				$("#classInfoModal").modal({
 					show: true
 				});
 				this.classInfo4Add = {id: 0, name: "", title: "", content: ""};
 			},
+			//根据页数获取数据
 			list(start) {
 				var _this = this;
 				_this.isLoading = true;
+				//传入参数：页码，关键词，一页记录大小
 				var url = "classInfos?start=" + start + "&keyword=" + _this.keyword + "&size=" + _this.size;
 				axios.get(url).then(function(res) {
 					_this.pagination = res.data;
@@ -72,12 +78,14 @@ $(function() {
 					_this.isLoading = false;
 				});
 			},
+			//重置按钮
 			reset: function() {
 				var _this = this;
 				$("#keyword").val("");
 				_this.keyword = $("#keyword").val();
 				_this.list(1);
 			},
+			//搜索按钮
 			search: function() {
 				var _this = this;
 				_this.keyword = $("#keyword").val();

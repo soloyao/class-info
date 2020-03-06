@@ -1,12 +1,17 @@
 package com.manage.classInfo.pojo;
 
+/**
+ * @ClassName:MoneyOut
+ * @Description:班费支出实体
+ * @date:2020年3月6日 上午10:51:23
+ */
 public class MoneyOut {
-	private int id;
-	private String content;
-	private double count;
-	private String outTime;
-	private String name;
-	private double leftMoney;
+	private int id;//主键id
+	private String content;//用作
+	private double count;//支出金额
+	private String outTime;//支出时间
+	private String name;//经办人
+	private double leftMoney;//剩余总班费
 	public int getId() {
 		return id;
 	}

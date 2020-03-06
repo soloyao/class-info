@@ -11,7 +11,11 @@ import org.springframework.web.servlet.ModelAndView;
 import com.manage.classInfo.pojo.User;
 
 
-
+/**
+ * @ClassName:LoginInterceptor
+ * @Description:登录拦截器
+ * @date:2020年3月6日 上午10:47:58
+ */
 @Component
 public class LoginInterceptor implements HandlerInterceptor{
 
