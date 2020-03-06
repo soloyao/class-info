@@ -122,33 +122,51 @@
 		    <div class="modal-content">
 		      <div class="modal-header">
 		        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">关闭</span></button>
-		        <h4 class="modal-title">my information</h4>
+		        <h4 class="modal-title">个人信息</h4>
 		      </div>
-		      <div class="modal-body">
-		        <div class="input-group">
-		        	<span class="input-group-addon">name:</span>
-		        	<input type="text" class="form-control" placeholder="name" v-model="user.name">
-		        </div>
-		        <div class="input-group">
-		        	<span class="input-group-addon">password:</span>
-		        	<input type="password" class="form-control" placeholder="password" v-model="user.password">
-		        </div>
-		        <div class="input-group">
-		        	<span class="input-group-addon">realname:</span>
-		        	<input type="text" class="form-control" placeholder="realname" v-model="user.realname">
-		        </div>
-		        <div class="input-group">
-		        	<span class="input-group-addon">phone:</span>
-		        	<input type="text" class="form-control" placeholder="phone:" v-model="user.phone">
-		        </div>
-		        <div class="input-group">
-		        	<span class="input-group-addon">sex:</span>
-		        	<input type="text" class="form-control" placeholder="sex" v-model="user.sex">
-		        </div>
-		      </div>
+		      <div class="content">
+		      				<div class="form-horizontal">
+		      					<div class="form-group">
+		      						<label for="name" class="col-sm-2">用户名</label>
+		      						<div class="col-sm-9">
+		      							<input class="form-control" v-model="user.name" id="name" placeholder="用户名" readonly>
+		      						</div>
+		      					</div>
+		      					<div class="form-group">
+		      						<label for="realname" class="col-sm-2">姓名</label>
+		      						<div class="col-sm-9">
+		      							<input class="form-control" v-model="user.realname">
+		      						</div>
+		      					</div>
+		      					<div class="form-group">
+		      						<label for="password" class="col-sm-2">密码</label>
+		      						<div class="col-sm-9">
+		      							<input class="form-control" v-model="user.password" type="password">
+		      						</div>
+		      					</div>
+		      					<div class="form-group">
+		      						<label for="phone" class="col-sm-2">电话</label>
+		      						<div class="col-sm-9">
+		      							<input class="form-control" v-model="user.phone">
+		      						</div>
+		      					</div>
+		      					<div class="form-group">
+		      						<label for="sex" class="col-sm-2">性别</label>
+		      						<div class="col-sm-9">
+		      							<input class="form-control" v-model="user.sex">
+		      						</div>
+		      					</div>
+		      					<div class="form-group">
+		      						<label for="money" class="col-sm-2">剩余班费</label>
+		      						<div class="col-sm-9">
+		      							<input class="form-control" v-model="user.money" readonly>
+		      						</div>
+		      					</div>
+		      				</div>
+		      	</div>
 		      <div class="modal-footer">
-		        <button type="button" class="btn btn-default" data-dismiss="modal">close</button>
-		        <button type="button" class="btn btn-primary">save</button>
+		        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+		        <button type="button" class="btn btn-primary" @click="save">保存</button>
 		      </div>
 		    </div>
 		  </div>

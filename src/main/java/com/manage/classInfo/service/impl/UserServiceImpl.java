@@ -48,6 +48,11 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
+	public void updateUser(User user) {
+		userMapper.update(user);
+	}
+	
+	@Override
 	public void update(User user) {
 		//删除当前用户角色
 		userMapper.deleteRoleByUserId(user.getId());

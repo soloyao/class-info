@@ -14,6 +14,7 @@ public interface UserService {
 	List<User> list(Map<String, String> paramMap);
 	void add(User user);
 	void update(User user);
+	void updateUser(User user);
 	void delete(int id);
 	User get(int id);
 	void updateBatch(Set<String> userIds, Set<String> roleIds);

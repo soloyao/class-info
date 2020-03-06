@@ -1,13 +1,11 @@
 $(function() {
-	var user = JSON.parse(window.sessionStorage.getItem("user"));
-	
 	var icon = ["icon-dashboard", "icon-book", "icon-cogs", "icon-tasks", "icon-th", "icon-envelope", "icon-user"]
 	
 	var data = {
 		active: null, //用来确认当前展示的功能页面
 		childrens: [], //所有子菜单
-		name: user.name,
-		user: user,
+		name: "",
+		user: {},
 		isFullScreen: false,
 		showNav: "block",
 		items: [] //左边导航处所有的菜单
@@ -18,10 +16,33 @@ $(function() {
 		data: data,
 		mounted: function() {
 			this.initNav();
+			this.initUser();
 			$("[data-toggle='tooltip']").tooltip();
 			timeInit();
 		},
 		methods: {
+			//初始化用户个人信息
+			initUser() {
+				var _this = this;
+				var url = "currentUser";
+				axios.get(url).then(function(res) {
+					_this.user = res.data.user;
+					_this.name = res.data.user.realname;
+				});
+			},
+			//个人信息框中保存按钮
+			save() {
+				var _this = this;
+				var url = "currentUser";
+				axios.put(url, this.user).then(function(res) {
+					if (res.data.code == 0) {
+						$("#infoModal").modal("hide");
+						_this.initUser();
+					} else {
+						myzui._error(res.data.msg);
+					}
+				});
+			},
 			//注销按钮
 			logout: function() {
 				myzui.confirm("确认注销？", function() {
@@ -36,6 +57,11 @@ $(function() {
 			personalInfo: function() {
 				var _this = this;
 				$("#infoModal").modal("show");
+				var url = "currentUser";
+				axios.get(url).then(function(res) {
+					_this.user = res.data.user;
+					_this.name = res.data.user.realname;
+				});
 			},
 			//初始化权限
 			initNav: function() {

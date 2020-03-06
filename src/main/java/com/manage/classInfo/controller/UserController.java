@@ -39,6 +39,35 @@ public class UserController {
 	@Autowired RoleService roleService;
 	
 	/**
+	 * 获取当前登录用户的个人信息
+	 * @param session
+	 * @return
+	 */
+	@GetMapping("/currentUser")
+	public String currentUser(HttpSession session) {
+		User currentUser = (User) session.getAttribute("user");
+		JSONObject json = new JSONObject();
+		json.put("user", currentUser);
+		return json.toJSONString();
+	}
+	
+	/**
+	 * 修改用户个人信息
+	 * @param user
+	 * @param session
+	 * @return
+	 */
+	@PutMapping("/currentUser")
+	public String updateUser(@RequestBody User user, HttpSession session) {
+		JSONObject json = new JSONObject();
+		userService.updateUser(user);
+		session.setAttribute("user", user);
+		json.put("code", 0);
+		json.put("msg", "修改成功");
+		return json.toJSONString();
+	}
+	
+	/**
 	 * 注册
 	 * @param user
 	 * @return
