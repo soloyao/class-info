@@ -1,5 +1,5 @@
 # Host: 127.0.0.1  (Version: 5.5.15)
-# Date: 2020-03-06 11:26:42
+# Date: 2020-03-06 18:29:49
 # Generator: MySQL-Front 5.3  (Build 4.269)
 
 /*!40101 SET NAMES gb2312 */;
@@ -18,7 +18,7 @@ CREATE TABLE `address_book` (
   `qqNumber` varchar(255) DEFAULT NULL,
   `address` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`Id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 #
 # Data for table "address_book"
@@ -38,7 +38,7 @@ CREATE TABLE `class_info` (
   `content` varchar(255) DEFAULT NULL,
   `createtime` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`Id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 #
 # Data for table "class_info"
@@ -57,7 +57,7 @@ CREATE TABLE `class_photo` (
   `content` varchar(255) DEFAULT NULL,
   `uploadtime` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`Id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
 #
 # Data for table "class_photo"
@@ -77,7 +77,7 @@ CREATE TABLE `message` (
   `createtime` varchar(255) DEFAULT NULL,
   `title` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`Id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 #
 # Data for table "message"
@@ -96,13 +96,13 @@ CREATE TABLE `money_in` (
   `count` double(11,2) DEFAULT NULL,
   `in_date` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`Id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 #
 # Data for table "money_in"
 #
 
-INSERT INTO `money_in` VALUES (5,'zmy',100.00,'2020-03-06');
+INSERT INTO `money_in` VALUES (13,'zmy',10.00,'2020-03-06'),(14,'hehuan',50.00,'2020-03-06');
 
 #
 # Structure for table "money_out"
@@ -117,13 +117,13 @@ CREATE TABLE `money_out` (
   `name` varchar(255) DEFAULT NULL,
   `left_money` double(11,2) DEFAULT NULL,
   PRIMARY KEY (`Id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
 
 #
 # Data for table "money_out"
 #
 
-INSERT INTO `money_out` VALUES (12,'聚餐',50.00,'2020-03-05 21:31:17','admin',249.99),(13,'聚餐',100.00,'2020-03-06 10:27:20','admin',249.99);
+INSERT INTO `money_out` VALUES (25,'聚餐',30.00,'2020-03-06 17:14:26','admin',330.00),(26,'团费',12.00,'2020-03-06 17:14:42','admin',318.00);
 
 #
 # Structure for table "permission"
@@ -137,7 +137,7 @@ CREATE TABLE `permission` (
   `url` varchar(100) DEFAULT NULL,
   `pid` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=66 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=82 DEFAULT CHARSET=utf8;
 
 #
 # Data for table "permission"
@@ -155,7 +155,7 @@ CREATE TABLE `role` (
   `name` varchar(100) DEFAULT NULL,
   `desc_` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 #
 # Data for table "role"
@@ -173,7 +173,7 @@ CREATE TABLE `role_permission` (
   `rid` bigint(20) DEFAULT NULL,
   `pid` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=855 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=941 DEFAULT CHARSET=utf8;
 
 #
 # Data for table "role_permission"
@@ -193,7 +193,7 @@ CREATE TABLE `study_info` (
   `content` varchar(255) DEFAULT NULL,
   `createtime` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`Id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 #
 # Data for table "study_info"
@@ -221,7 +221,7 @@ CREATE TABLE `user` (
 # Data for table "user"
 #
 
-INSERT INTO `user` VALUES (1,'admin','admin','18573903136','管理员','男',83.33),(2,'hehuan','123123','123','何欢','女',83.33),(3,'zmy','zmy','1','曾梦瑶','男',83.33);
+INSERT INTO `user` VALUES (1,'admin','admin','18573903136','管理员','女',84.00),(2,'hehuan','123123','123','何欢','女',134.00),(3,'zmy','zmy','1','曾梦瑶','男',100.00);
 
 #
 # Structure for table "user_role"
@@ -233,7 +233,7 @@ CREATE TABLE `user_role` (
   `uid` bigint(20) DEFAULT NULL,
   `rid` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=97 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=103 DEFAULT CHARSET=utf8;
 
 #
 # Data for table "user_role"
